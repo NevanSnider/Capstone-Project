@@ -9,9 +9,14 @@ var rotateSpeed = 0
 @onready var rocketSound: AudioStreamPlayer = $RocketSounds
 @onready var crash: AudioStreamPlayer = $Crash
 
+
+#Accessibility Mode Variables
+@export var decelerationRate:float
+
 func _ready():
 	var data = SaveManager.load_game()
 	GameController.package_collected = data["package_collected"]
+
 
 func respawn_to_base():
 	var data = SaveManager.load_game()
@@ -26,12 +31,16 @@ func respawn_to_base():
 
 	
 func _physics_process(delta: float) -> void:
+
 	# Add the gravity.
 	if Input.is_action_pressed("turn_left") and not(Input.is_action_pressed("turn_right")) :
 		rotateSpeed -= torque*delta
 		
 	elif Input.is_action_pressed("turn_right") and not(Input.is_action_pressed("turn_left")):
 		rotateSpeed += torque*delta
+	else:
+		if AccessibilityHandler.isAccessibilityEnabled: #IF accessibility mode is on we want rotation to be non inertial
+			rotateSpeed = 0
 	
 	rotation += rotateSpeed
 		
@@ -41,6 +50,11 @@ func _physics_process(delta: float) -> void:
 		if not rocketSound.playing:
 			rocketSound.play()
 	else:
+		if AccessibilityHandler.isAccessibilityEnabled:
+			#IF accessibility is active, add deceleration to improve movement
+			if velocity.length()>0:
+				velocity = velocity.lerp(Vector2.ZERO, delta*decelerationRate)
+		
 		rocket.play("default")
 		if  rocketSound.playing:
 			rocketSound.stop()	

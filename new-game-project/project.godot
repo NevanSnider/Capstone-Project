@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 EventController="*res://scripts/event_controller.gd"
 GameController="*res://scripts/game_controller.gd"
 SaveManager="*res://scripts/save_manager.gd"
+AccessibilityHandler="*res://scripts/accessibilityhandler.gd"
 
 [input]
 

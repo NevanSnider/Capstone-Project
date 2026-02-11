@@ -60,6 +60,7 @@ position = Vector2(-3, -6)
 [node name="Ship" parent="." instance=ExtResource("1_uwrxv")]
 z_index = 3
 safe_margin = 0.008
+decelerationRate = 5.0
 
 [node name="RocketSounds" type="AudioStreamPlayer" parent="Ship"]
 stream = ExtResource("2_ssvqc")
