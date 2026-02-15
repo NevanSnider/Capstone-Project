@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://yicge48108e0"]
+[gd_scene load_steps=31 format=3 uid="uid://yicge48108e0"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="AudioStream" uid="uid://clpk7iv2upwlo" path="res://assets/sounds/rocketAudio.wav" id="2_ssvqc"]
@@ -20,6 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://bjgoy55cf5n20" path="res://assets/starBackground.png" id="11_kvpfn"]
 [ext_resource type="Script" uid="uid://dsbm8x1jo0qc1" path="res://scripts/shop.gd" id="12_5newe"]
 [ext_resource type="Script" uid="uid://dwoyettx8ey15" path="res://scenes/background.gd" id="12_dinhu"]
+[ext_resource type="Script" uid="uid://0mhtekqur4lu" path="res://scripts/fuel_bar.gd" id="13_37s47"]
+[ext_resource type="Script" uid="uid://ccemgw4p7pyfe" path="res://scripts/oxygen_bar.gd" id="14_bt5mj"]
 [ext_resource type="AudioStream" uid="uid://cyir0pae3o2ur" path="res://assets/sounds/ding.mp3" id="15_264po"]
 
 [sub_resource type="GDScript" id="GDScript_rysoc"]
@@ -6600,6 +6602,21 @@ offset_top = -275.0
 offset_right = -418.0
 offset_bottom = -232.0
 placeholder_text = "Money: 0"
+
+[node name="FuelBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+offset_right = 227.0
+offset_bottom = 126.0
+value = 50.0
+script = ExtResource("13_37s47")
+player = NodePath("../../Ship")
+
+[node name="OxygenBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+offset_top = 126.0
+offset_right = 227.0
+offset_bottom = 252.0
+value = 50.0
+script = ExtResource("14_bt5mj")
+player = NodePath("../../Ship")
 
 [node name="HomeBase" type="Node2D" parent="."]
 position = Vector2(359, -145)
