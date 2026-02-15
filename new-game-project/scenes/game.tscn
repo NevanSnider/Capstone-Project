@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://yicge48108e0"]
+[gd_scene load_steps=29 format=3 uid="uid://yicge48108e0"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="AudioStream" uid="uid://clpk7iv2upwlo" path="res://assets/sounds/rocketAudio.wav" id="2_ssvqc"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://dmbeirobembkd" path="res://scripts/canvas_layer.gd" id="9_0tnpc"]
 [ext_resource type="Script" uid="uid://dfnmkp1y727is" path="res://scripts/save_manager.gd" id="9_vtaks"]
 [ext_resource type="Texture2D" uid="uid://bjgoy55cf5n20" path="res://assets/starBackground.png" id="11_kvpfn"]
+[ext_resource type="Script" uid="uid://dsbm8x1jo0qc1" path="res://scripts/shop.gd" id="12_5newe"]
 [ext_resource type="Script" uid="uid://dwoyettx8ey15" path="res://scenes/background.gd" id="12_dinhu"]
 [ext_resource type="AudioStream" uid="uid://cyir0pae3o2ur" path="res://assets/sounds/ding.mp3" id="15_264po"]
 
@@ -30,6 +31,32 @@ func _ready():
 	
 	if minimap_viewport:
 		minimap_viewport.world_2d = main_world_2d
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5newe"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="GDScript" id="GDScript_5newe"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
 "
 
 [sub_resource type="GDScript" id="GDScript_kvpfn"]
@@ -6482,6 +6509,98 @@ layout_mode = 2
 texture = ExtResource("8_rysoc")
 stretch_mode = 4
 
+[node name="Shop" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 575.0
+offset_top = 305.0
+offset_right = 615.0
+offset_bottom = 345.0
+script = ExtResource("12_5newe")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Shop"]
+custom_minimum_size = Vector2(700, 450)
+layout_mode = 0
+offset_left = -571.0
+offset_top = -305.0
+offset_right = 584.0
+offset_bottom = 346.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5newe")
+
+[node name="Button" type="Button" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = -227.0
+offset_top = -195.0
+offset_right = -139.0
+offset_bottom = -155.0
+text = "Upgrade 1"
+script = SubResource("GDScript_5newe")
+
+[node name="Button2" type="Button" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = 155.0
+offset_top = -198.0
+offset_right = 243.0
+offset_bottom = -158.0
+text = "Upgrade 2"
+
+[node name="Button3" type="Button" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = -225.0
+offset_top = 24.0
+offset_right = -137.0
+offset_bottom = 64.0
+text = "Upgrade 3"
+
+[node name="Button4" type="Button" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = 154.0
+offset_top = 25.0
+offset_right = 242.0
+offset_bottom = 65.0
+text = "Upgrade 4"
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = -277.0
+offset_top = -126.0
+offset_right = -81.0
+offset_bottom = -65.0
+text = "Description of Upgrade
+and cost"
+
+[node name="TextEdit2" type="TextEdit" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = -275.0
+offset_top = 93.0
+offset_right = -79.0
+offset_bottom = 154.0
+text = "Description of Upgrade"
+
+[node name="TextEdit3" type="TextEdit" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = 103.0
+offset_top = -126.0
+offset_right = 299.0
+offset_bottom = -65.0
+text = "Description of Upgrade"
+
+[node name="TextEdit4" type="TextEdit" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = 103.0
+offset_top = 91.0
+offset_right = 299.0
+offset_bottom = 152.0
+text = "Description of Upgrade"
+
+[node name="TextEdit5" type="TextEdit" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = -523.0
+offset_top = -275.0
+offset_right = -418.0
+offset_bottom = -232.0
+placeholder_text = "Money: 0"
+
 [node name="HomeBase" type="Node2D" parent="."]
 position = Vector2(359, -145)
 script = ExtResource("5_gee14")
@@ -6700,6 +6819,10 @@ camera = NodePath("../Camera2D")
 target = NodePath("../Ship")
 metadata/_edit_lock_ = true
 
+[connection signal="pressed" from="CanvasLayer/Shop/Button" to="Ship" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Shop/Button2" to="Ship" method="_on_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/Shop/Button3" to="Ship" method="_on_button_3_pressed"]
+[connection signal="pressed" from="CanvasLayer/Shop/Button4" to="Ship" method="_on_button_4_pressed"]
 [connection signal="body_entered" from="HomeBase/Base" to="HomeBase" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_area_2d_body_exited"]
 [connection signal="body_shape_entered" from="HomeBase/Base" to="HomeBase/Sprite2D" method="_on_area_2d_body_shape_entered"]

@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-
+var money: int = 0
 @export var force: float = 50.0
 @export var torque: float = .05
 var rotateSpeed = 0
@@ -66,3 +66,29 @@ func _physics_process(delta: float) -> void:
 		crash.play()
 		respawn_to_base()
 			
+#Adds money to the balance when an asteroid is collected and updates the shop menu interface
+func add_money(amount):
+	money += amount;
+	$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+
+# These are all the buttons attached to specific upgrades. When upgrades are added it
+# will require a specific amount of money to purchase the item
+func _on_button_2_pressed() -> void:
+	if (money < 0):
+		pass
+	pass # Replace with function body.
+
+func _on_button_pressed() -> void:
+	if (money < 0):
+		pass
+	pass # Replace with function body.
+
+func _on_button_3_pressed() -> void:
+	if (money < 0):
+		pass
+	pass # Replace with function body.
+
+func _on_button_4_pressed() -> void:
+	if (money < 0):
+		pass
+	pass # Replace with function body.
