@@ -1,6 +1,9 @@
 extends Node
 @onready var shop_node = get_node("/root/Game/CanvasLayer/Shop")
 
+signal player_entered_base
+
+
 var player_in_base = false
 var save_manager: Node = null
 
@@ -17,15 +20,13 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			GameController.package_collected,
 			GameController.asteroid_collected
 		)
+		
+		emit_signal("player_entered_base")
+
 		#Status of asteroid/package collection for save state testing
 		print("asteroid collected:", GameController.asteroid_collected )
 		print("package collected:", GameController.package_collected )
 
-#When you leave the body of the home base, it updates whether you are and sends that information to the relevant places
-func _on_area_2d_body_exited(body: Node2D) -> void:
-	if body.name == "Ship":
-		player_in_base = false
-		shop_node.set_pib(false)
 
 		
 func _process(delta):
