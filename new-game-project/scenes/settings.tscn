@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=3 uid="uid://cljjkj7v8slh4"]
+
+[ext_resource type="Script" uid="uid://uy08w87x37mt" path="res://scripts/settings.gd" id="1_5p8wc"]
+
+[sub_resource type="Gradient" id="Gradient_36l1p"]
+offsets = PackedFloat32Array(0.8333333)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5p8wc"]
+gradient = SubResource("Gradient_36l1p")
+
+[node name="Settings" type="Node2D"]
+script = ExtResource("1_5p8wc")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -1.0
+offset_top = -4.0
+offset_right = 1919.0
+offset_bottom = 1076.0
+scale = Vector2(0.600232, 0.6042032)
+texture = SubResource("GradientTexture2D_5p8wc")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -1.0
+offset_top = -4.0
+offset_right = 39.0
+offset_bottom = 36.0
+
+[node name="EZMode" type="CheckButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 490.6526
+offset_top = 262.08258
+offset_right = 662.6526
+offset_bottom = 312.08258
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "EZ Mode"
+
+[node name="LockCamera" type="CheckButton" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 415.0
+offset_top = 312.0
+offset_right = 663.0
+offset_bottom = 365.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Lock Camera"
+
+[node name="AccessibilityMode" type="CheckButton" parent="Control"]
+layout_mode = 0
+offset_left = 369.0
+offset_top = 232.0
+offset_right = 683.0
+offset_bottom = 282.0
+theme_override_font_sizes/font_size = 30
+text = "Accessibility Mode"
+
+[node name="Return" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 444.86963
+offset_top = 356.90314
+offset_right = 633.1304
+offset_bottom = 419.79572
+grow_horizontal = 2
+grow_vertical = 0
+text = "Return"
+
+[connection signal="toggled" from="Control/EZMode" to="." method="_on_ezmode_toggled"]
+[connection signal="toggled" from="Control/LockCamera" to="." method="_on_cameralock_toggled"]
+[connection signal="toggled" from="Control/AccessibilityMode" to="." method="_on_accessibility_mode_toggled"]
+[connection signal="pressed" from="Control/Return" to="." method="_on_return_pressed"]

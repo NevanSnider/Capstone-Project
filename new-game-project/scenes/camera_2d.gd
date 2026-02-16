@@ -5,7 +5,7 @@ var zoomSpeed = 5
 var spin = false
 
 func _process(delta):
-	
+	spin = GlobalSettings.camera_lock
 
 	if target:
 		position = target.global_position
