@@ -1,3 +1,15 @@
+#Code Artifact Name: Shop Script
+#Description: The code handles the opening and closing of the shop
+#Programmer's name: Nevan Snider
+#Date created: 2/14/2026
+#Date modified: 2/14/2026
+#Preconditions: You take an input from the base whether the player is in it or not
+#Postconditions: Changes the visibility of the shop and pauses/unpauses the game
+#Error and exceptions: N/A
+#Side effects: N/A
+#Invariants: N/A
+#Any known faults: N/A
+
 extends Control
 
 var player_in_base = false
