@@ -1,9 +1,18 @@
 extends CharacterBody2D
 
-var maxFuel: int = 30000
+var fuelTier: int = 1
+var oxygenTier: int = 1
+var thrusterTier: int = 1
+
+var maxFuel: int = 1
 var fuel: int = maxFuel
-var maxOxygen: int = 300000
+var maxOxygen: int = 1
 var oxygen: int = maxOxygen
+
+var baseMass: int = 30000
+var currentMass: int = 30000+fuel
+
+var handlingConstant: int = 50000
 
 var money: int = 0
 @export var force: float = 50.0
@@ -45,14 +54,45 @@ func respawn_to_base():
 
 	
 func _physics_process(delta: float) -> void:
-
+	
+	if(fuelTier == 1):
+		maxFuel = 14000
+	elif(fuelTier == 2):
+		maxFuel = 22000
+	elif(fuelTier == 3):
+		maxFuel = 30000		
+	elif(fuelTier == 4):
+		maxFuel = 40000				
+		
+	if(oxygenTier == 1):
+		maxOxygen = 60000
+	elif(oxygenTier == 2):
+		maxOxygen = 120000
+	elif(oxygenTier == 3):
+		maxOxygen = 200000		
+	elif(oxygenTier == 4):
+		maxOxygen = 300000	
+	elif(oxygenTier == 5):
+		maxOxygen = 400000		
+		
+	if(thrusterTier == 1):
+		force = 25
+		torque = .025
+	elif(thrusterTier == 2):
+		force = 50
+		torque = .05	
+	elif(thrusterTier == 3):
+		force = 75
+		torque = .075
+		
+	currentMass = 30000+fuel
 	# Add the gravity.
 	if Input.is_action_pressed("turn_left") and not(Input.is_action_pressed("turn_right") and fuel > 0) :
-		rotateSpeed -= torque*delta
+		rotateSpeed -= torque*delta*handlingConstant/currentMass
 		fuel -= 5
 		
 	elif Input.is_action_pressed("turn_right") and not(Input.is_action_pressed("turn_left") and fuel > 0):
-		rotateSpeed += torque*delta
+		rotateSpeed += torque*delta*handlingConstant/currentMass
 		fuel -= 5
 		
 	else:
@@ -62,7 +102,7 @@ func _physics_process(delta: float) -> void:
 	rotation += rotateSpeed
 		
 	if (Input.is_action_pressed("thrust")  and fuel > 0):
-		velocity += Vector2.UP.rotated(rotation)*force*delta
+		velocity += Vector2.UP.rotated(rotation)*force*delta*handlingConstant/currentMass
 		fuel -= 10
 		rocket.play("thrust")
 		if not rocketSound.playing:
@@ -86,8 +126,9 @@ func _physics_process(delta: float) -> void:
 		
 	oxygen -= 10
 
-	print("Fuel Remaining: ", float(fuel)/maxFuel)		
-	print("Oxygen Remaining: ", float(oxygen)/maxOxygen)		
+	#print(force*delta*45000/currentMass)
+	#print("Fuel Remaining: ", float(fuel)/maxFuel)		
+	#print("Oxygen Remaining: ", float(oxygen)/maxOxygen)		
 
 			
 #Adds money to the balance when an asteroid is collected and updates the shop menu interface
