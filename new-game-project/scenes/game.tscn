@@ -6535,7 +6535,7 @@ offset_left = -227.0
 offset_top = -195.0
 offset_right = -139.0
 offset_bottom = -155.0
-text = "Upgrade 1"
+text = "Fuel Tier 1"
 script = SubResource("GDScript_5newe")
 
 [node name="Button2" type="Button" parent="CanvasLayer/Shop"]
@@ -6544,63 +6544,49 @@ offset_left = 155.0
 offset_top = -198.0
 offset_right = 243.0
 offset_bottom = -158.0
-text = "Upgrade 2"
+text = "Oxygen Tier 1"
 
 [node name="Button3" type="Button" parent="CanvasLayer/Shop"]
 layout_mode = 0
-offset_left = -225.0
-offset_top = 24.0
-offset_right = -137.0
-offset_bottom = 64.0
-text = "Upgrade 3"
-
-[node name="Button4" type="Button" parent="CanvasLayer/Shop"]
-layout_mode = 0
-offset_left = 154.0
-offset_top = 25.0
-offset_right = 242.0
-offset_bottom = 65.0
-text = "Upgrade 4"
+offset_left = -45.0
+offset_top = 23.0
+offset_right = 77.0
+offset_bottom = 63.0
+text = "Thruster Tier 1"
 
 [node name="TextEdit" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0
 offset_left = -277.0
 offset_top = -126.0
 offset_right = -81.0
-offset_bottom = -65.0
-text = "Description of Upgrade
-and cost"
+offset_bottom = -62.0
+text = "Increase Fuel Tank
+Maximum. $100"
 
 [node name="TextEdit2" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0
-offset_left = -275.0
+offset_left = -80.0
 offset_top = 93.0
-offset_right = -79.0
-offset_bottom = 154.0
-text = "Description of Upgrade"
+offset_right = 116.0
+offset_bottom = 158.0
+text = "Increase Thruster
+Power. $100"
 
 [node name="TextEdit3" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0
-offset_left = 103.0
-offset_top = -126.0
-offset_right = 299.0
-offset_bottom = -65.0
-text = "Description of Upgrade"
-
-[node name="TextEdit4" type="TextEdit" parent="CanvasLayer/Shop"]
-layout_mode = 0
-offset_left = 103.0
-offset_top = 91.0
-offset_right = 299.0
-offset_bottom = 152.0
-text = "Description of Upgrade"
+offset_left = 113.0
+offset_top = -127.0
+offset_right = 309.0
+offset_bottom = -63.0
+text = "Increase Oxygen Tank
+Maximum. $100"
 
 [node name="TextEdit5" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0
-offset_left = -523.0
-offset_top = -275.0
-offset_right = -418.0
-offset_bottom = -232.0
+offset_left = 427.0
+offset_top = -274.0
+offset_right = 532.0
+offset_bottom = -231.0
 placeholder_text = "Money: 0"
 
 [node name="FuelBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
@@ -6839,8 +6825,8 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="CanvasLayer/Shop/Button" to="Ship" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/Button2" to="Ship" method="_on_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/Button3" to="Ship" method="_on_button_3_pressed"]
-[connection signal="pressed" from="CanvasLayer/Shop/Button4" to="Ship" method="_on_button_4_pressed"]
 [connection signal="body_entered" from="HomeBase/Base" to="HomeBase" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_base_body_exited"]
 [connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_area_2d_body_exited"]
 [connection signal="body_shape_entered" from="HomeBase/Base" to="HomeBase/Sprite2D" method="_on_area_2d_body_shape_entered"]
 [connection signal="body_entered" from="Package/Package" to="Package" method="_on_area_2d_body_entered"]

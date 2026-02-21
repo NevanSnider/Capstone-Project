@@ -138,22 +138,97 @@ func add_money(amount):
 
 # These are all the buttons attached to specific upgrades. When upgrades are added it
 # will require a specific amount of money to purchase the item
+
+#Oxygen Upgrades
 func _on_button_2_pressed() -> void:
-	if (money < 0):
-		pass
-	pass # Replace with function body.
+	if (oxygenTier == 1):
+		if (money >= 100):
+			oxygenTier += 1
+			money -= 100
+			$"../CanvasLayer/Shop/Button2".text = "Oxygen Tier 2"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Oxygen Tank\nMaximum. $200"
 
+			
+	if (oxygenTier == 2):
+		if (money >= 200):
+			oxygenTier += 1
+			money -= 200
+			$"../CanvasLayer/Shop/Button2".text = "Oxygen Tier 3"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Oxygen Tank\nMaximum. $300"
+			
+			
+	if (oxygenTier == 3):
+		if (money >= 300):
+			oxygenTier += 1
+			money -= 300
+			$"../CanvasLayer/Shop/Button2".text = "Oxygen Tier 4"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Oxygen Tank\nMaximum. $400"
+			
+	if (oxygenTier == 4):
+		if (money >= 400):
+			oxygenTier += 1
+			money -= 400
+			$"../CanvasLayer/Shop/Button2".text = "Oxygen Max Reached"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit2".text = ""
+
+#fuel upgrades
 func _on_button_pressed() -> void:
-	if (money < 0):
-		pass
-	pass # Replace with function body.
+	if (fuelTier == 1):
+		if (money >= 100):
+			fuelTier += 1
+			money -= 100
+			$"../CanvasLayer/Shop/Button".text = "Fuel Tier 2"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum. $200"
+			
+	if (fuelTier == 2):
+		if (money >= 200):
+			fuelTier += 1
+			money -= 200
+			$"../CanvasLayer/Shop/Button".text = "Fuel Tier 3"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum. $300"
+			
+	if (fuelTier == 3):
+		if (money >= 300):
+			fuelTier += 1
+			money -= 300
+			$"../CanvasLayer/Shop/Button".text = "Fuel Tier 4"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum. $400"
+			
+	if (fuelTier == 4):
+		if (money >= 400):
+			fuelTier += 1
+			money -= 400
+			$"../CanvasLayer/Shop/Button".text = "Fuel Max Reached"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum. $400"
 
+#Thruster upgrades
 func _on_button_3_pressed() -> void:
-	if (money < 0):
-		pass
-	pass # Replace with function body.
-
-func _on_button_4_pressed() -> void:
-	if (money < 0):
-		pass
-	pass # Replace with function body.
+	if (thrusterTier == 1):
+		if (money >= 100):
+			thrusterTier += 1
+			money -= 100
+			$"../CanvasLayer/Shop/Button3".text = "Thruster Tier 2"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit".text = ""
+			
+	if (thrusterTier == 2):
+		if (money >= 200):
+			thrusterTier += 1
+			money -= 200
+			$"../CanvasLayer/Shop/Button3".text = "Thruster Tier 3"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			
+	if (thrusterTier == 3):
+		if (money >= 300):
+			thrusterTier += 1
+			money -= 300
+			$"../CanvasLayer/Shop/Button3".text = "Thruster Max Reached"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)

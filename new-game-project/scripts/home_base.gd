@@ -13,6 +13,7 @@ func _ready():
 #When you enter the body of the home base, it updates whether you are and sends that information to the relevant places
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Ship":
+		print("player entered base")
 		player_in_base = true
 		shop_node.set_pib(true)
 		save_manager.save_game(
@@ -34,3 +35,10 @@ func _process(delta):
 		if GameController.package_collected == true:
 			GameController.package_return(GameController.asteroid_collected)
 			print("package returned!")
+
+#tracks whether the player has exited the body
+func _on_base_body_exited(body: Node2D) -> void:
+	if body.name == "Ship":
+		print("player exited base")
+		player_in_base = false
+		shop_node.set_pib(false)
