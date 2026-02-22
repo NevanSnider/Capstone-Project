@@ -6489,21 +6489,23 @@ script = SubResource("GDScript_rysoc")
 position = Vector2(194, -120)
 zoom = Vector2(4, 4)
 
-[node name="Pointing to Base" type="Sprite2D" parent="CanvasLayer/MinimapContainer" node_paths=PackedStringArray("player", "respawn_point", "minimap_container")]
+[node name="Pointing to Base" type="Sprite2D" parent="CanvasLayer/MinimapContainer" node_paths=PackedStringArray("player", "respawn_point", "minimap_container", "main_camera")]
 position = Vector2(144, 42)
 texture = ExtResource("7_ca42v")
 script = ExtResource("8_ca42v")
 player = NodePath("../../../Ship")
 respawn_point = NodePath("../../../HomeBase/RespawnPoint")
 minimap_container = NodePath("..")
+main_camera = NodePath("../../../Camera2D")
 
-[node name="Pointing to Package" type="Sprite2D" parent="CanvasLayer/MinimapContainer" node_paths=PackedStringArray("player", "respawn_point", "minimap_container")]
+[node name="Pointing to Package" type="Sprite2D" parent="CanvasLayer/MinimapContainer" node_paths=PackedStringArray("player", "respawn_point", "minimap_container", "main_camera")]
 position = Vector2(144, 42)
 texture = ExtResource("7_ca42v")
 script = ExtResource("8_ssvqc")
 player = NodePath("../../../Ship")
 respawn_point = NodePath("../../../Package")
 minimap_container = NodePath("..")
+main_camera = NodePath("../../../Camera2D")
 
 [node name="MiniMapDisplay" type="TextureRect" parent="CanvasLayer/MinimapContainer"]
 custom_minimum_size = Vector2(256, 256)
@@ -6512,6 +6514,7 @@ texture = ExtResource("8_rysoc")
 stretch_mode = 4
 
 [node name="Shop" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 575.0
@@ -6626,7 +6629,7 @@ shape = SubResource("RectangleShape2D_p57ef")
 position = Vector2(-366, 153)
 
 [node name="Package" type="Node2D" parent="."]
-position = Vector2(26993, -13083)
+position = Vector2(27006, -13090)
 script = ExtResource("7_0tnpc")
 
 [node name="Sprite2D" type="Sprite2D" parent="Package"]

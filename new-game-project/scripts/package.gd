@@ -1,5 +1,7 @@
 extends Node2D
 class_name Package
+signal package_triggered
+	
 
 
 var player_in_body = false
@@ -20,6 +22,9 @@ func _process(delta):
 		ding.play()
 		print($Ding)
 		print("Package Collected!")
+		emit_signal("package_triggered")
+		
 		await get_tree().create_timer(0.1).timeout
 		
 		queue_free()
+		
