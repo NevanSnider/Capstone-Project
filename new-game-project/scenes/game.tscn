@@ -1,7 +1,7 @@
 [gd_scene load_steps=31 format=3 uid="uid://yicge48108e0"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_uwrxv"]
-[ext_resource type="AudioStream" uid="uid://clpk7iv2upwlo" path="res://assets/sounds/rocketAudio.wav" id="2_ssvqc"]
+[ext_resource type="AudioStream" uid="uid://ti8w62a0v2dx" path="res://assets/sounds/rocketAudio.mp3" id="2_bt5mj"]
 [ext_resource type="Script" uid="uid://cpx37ymr8sl4r" path="res://scenes/camera_2d.gd" id="2_vtaks"]
 [ext_resource type="PackedScene" uid="uid://67q43j70v2jc" path="res://scenes/asteroid.tscn" id="2_yqjtg"]
 [ext_resource type="AudioStream" uid="uid://38r46m0yybm4" path="res://assets/sounds/crash.mp3" id="3_1kice"]
@@ -92,7 +92,7 @@ safe_margin = 0.008
 decelerationRate = 5.0
 
 [node name="RocketSounds" type="AudioStreamPlayer" parent="Ship"]
-stream = ExtResource("2_ssvqc")
+stream = ExtResource("2_bt5mj")
 volume_db = 8.0
 
 [node name="Crash" type="AudioStreamPlayer" parent="Ship"]
