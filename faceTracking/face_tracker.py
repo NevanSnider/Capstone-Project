@@ -1,39 +1,51 @@
 """
 Face Tracker - Sprint 2
-Handles webcam access, OpenCV integration, face tracking, and TCP server.
+Handles webcam access, OpenCV integration, face tracking, and WebSocket server.
 Uses the new MediaPipe FaceLandmarker API (v0.10.30+).
 
-Sends face data to Godot over TCP on localhost:5555.
-Data format: JSON string per line, e.g.:
+Sends face data to Godot over WebSocket on ws://localhost:5555.
+Data format: JSON string per message, e.g.:
   {"head_tilt": -3.2, "mouth_open": true, "face_detected": true}
 
 First time setup:
   python3 -m venv venv
   source venv/bin/activate
-  pip install opencv-python mediapipe
+  pip install opencv-python mediapipe websockets
   Then run this script - it will auto-download the model file.
 
 Run: python3 face_tracker.py
 """
 
+import asyncio
 import cv2
 import json
+import logging
 import math
 import os
-import socket
 import threading
 import urllib.request
 
 import mediapipe as mp
+import websockets
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
+
+# -----------------------------------------------------------------------------
+# Logging configuration
+# -----------------------------------------------------------------------------
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%H:%M:%S",
+)
+logger = logging.getLogger("FaceTracker")
 
 # -----------------------------------------------------------------------------
 # Networking configuration
 # -----------------------------------------------------------------------------
 # This script acts as a local data producer for the game:
 # - Python computes face signals from webcam frames.
-# - Godot connects as a TCP client and receives those signals as JSON lines.
+# - Godot connects as a WebSocket client and receives those signals as JSON messages.
 # Keeping host/port as constants makes this easy to share across both projects.
 HOST = "127.0.0.1"
 PORT = 5555
@@ -54,79 +66,100 @@ def download_model():
     # this prevents runtime failure later when creating the landmarker.
     # If the file exists, this is a fast no-op.
     if not os.path.exists(MODEL_PATH):
-        print("Downloading face landmarker model (first time only)...")
+        logger.info("Downloading face landmarker model (first time only)...")
         urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
-        print("Model downloaded.")
+        logger.info("Model downloaded.")
 
 
 class FaceTrackServer:
-    """TCP server that manages connected Godot clients."""
+    """WebSocket server that manages connected Godot clients."""
 
     def __init__(self):
         # Client state + lock:
-        # The main loop sends data while the accept loop may add clients.
-        # A lock keeps this shared list safe across threads.
-        self.clients = []
+        # The main loop sends data while the WebSocket handler may add/remove clients.
+        # A lock keeps this shared set safe across threads.
+        self.clients: set[websockets.WebSocketServerProtocol] = set()
         self.lock = threading.Lock()
-
-        # Server socket setup:
-        # - AF_INET/SOCK_STREAM => IPv4 TCP socket.
-        # - SO_REUSEADDR avoids "address already in use" on quick restarts.
-        # - timeout allows periodic checks of `self.running` for clean shutdown.
-        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.server_socket.bind((HOST, PORT))
-        self.server_socket.listen(2)
-        self.server_socket.settimeout(0.1)
         self.running = True
 
-        # Background accept thread:
-        # keeps connection handling non-blocking so frame processing stays real-time.
-        self.accept_thread = threading.Thread(target=self._accept_loop, daemon=True)
-        self.accept_thread.start()
-        print(f"TCP server listening on {HOST}:{PORT}")
-        print("Waiting for Godot to connect...")
+        # Asyncio event loop running in a background thread:
+        # WebSocket server needs an event loop, but the main thread is busy
+        # with OpenCV frame processing, so we spin up a dedicated loop.
+        self._loop = asyncio.new_event_loop()
+        self._thread = threading.Thread(target=self._run_loop, daemon=True)
+        self._thread.start()
 
-    def _accept_loop(self):
-        # Connection listener loop.
-        # Runs until shutdown, accepts Godot clients, and stores sockets for broadcast.
-        while self.running:
-            try:
-                client, addr = self.server_socket.accept()
-                with self.lock:
-                    self.clients.append(client)
-                print(f"Godot connected from {addr}")
-            except socket.timeout:
-                continue
-            except OSError:
-                break
+        logger.info(f"WebSocket server starting on ws://{HOST}:{PORT}")
+        logger.info("Waiting for Godot to connect...")
+
+    def _run_loop(self):
+        """Run the asyncio event loop in a background thread."""
+        asyncio.set_event_loop(self._loop)
+        self._loop.run_until_complete(self._serve())
+
+    async def _serve(self):
+        """Start the WebSocket server and run until shutdown."""
+        async with websockets.serve(
+            self._handler, HOST, PORT,
+            ping_interval=20, ping_timeout=20,
+        ) as ws_server:
+            logger.info(f"WebSocket server is listening on ws://{HOST}:{PORT}")
+            # Keep the server running until `self.running` is cleared.
+            while self.running:
+                await asyncio.sleep(0.1)
+        logger.info("WebSocket server shut down.")
+
+    async def _handler(self, websocket: websockets.WebSocketServerProtocol):
+        """Handle a single WebSocket client connection."""
+        remote = websocket.remote_address
+        logger.info(f"Godot connected via WebSocket from {remote}")
+
+        with self.lock:
+            self.clients.add(websocket)
+
+        try:
+            # Keep the connection open; we only send data, but awaiting
+            # recv detects disconnects cleanly.
+            async for _ in websocket:
+                pass  # Ignore any messages from the client
+        except websockets.ConnectionClosed as e:
+            logger.info(f"Godot client {remote} disconnected (code={e.code}, reason={e.reason!r})")
+        finally:
+            with self.lock:
+                self.clients.discard(websocket)
+            logger.info(f"Godot client {remote} removed from active connections.")
 
     def send(self, data_dict):
-        """Send JSON data to all connected clients."""
-        # Message protocol:
-        # one JSON object per line so receivers can parse a continuous stream by '\n'.
-        message = json.dumps(data_dict) + "\n"
-        raw = message.encode("utf-8")
+        """Send JSON data to all connected WebSocket clients."""
+        message = json.dumps(data_dict)
         with self.lock:
-            dead = []
-            # Broadcast latest face state to every connected client.
-            for client in self.clients:
-                try:
-                    client.sendall(raw)
-                except (BrokenPipeError, ConnectionResetError, OSError):
-                    # Mark broken sockets and remove them after iteration.
-                    dead.append(client)
-            for d in dead:
-                self.clients.remove(d)
-                print("Godot client disconnected.")
+            clients_snapshot = list(self.clients)
+
+        for client in clients_snapshot:
+            try:
+                asyncio.run_coroutine_threadsafe(
+                    client.send(message), self._loop
+                )
+            except Exception:
+                # Client will be cleaned up by the handler when it detects disconnect.
+                pass
 
     def close(self):
-        # Graceful shutdown of all networking resources.
+        """Graceful shutdown of all networking resources."""
+        logger.info("Shutting down WebSocket server...")
         self.running = False
+
+        # Close all active client connections
         with self.lock:
             for client in self.clients:
-                client.close()
-        self.server_socket.close()
+                asyncio.run_coroutine_threadsafe(
+                    client.close(), self._loop
+                )
+
+        # Give the event loop a moment to complete cleanup, then stop it
+        self._loop.call_soon_threadsafe(self._loop.stop)
+        self._thread.join(timeout=2)
+        logger.info("WebSocket server closed.")
 
 
 def main():
@@ -143,14 +176,14 @@ def main():
     # the rest of the pipeline depends on incoming frames.
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
-        print("ERROR: Could not access camera.")
-        print("Check: System Settings > Privacy & Security > Camera")
+        logger.error("Could not access camera.")
+        logger.error("Check: System Settings > Privacy & Security > Camera")
         return
 
     # -------------------------------------------------------------------------
     # 3) Networking initialization
     # -------------------------------------------------------------------------
-    # Start local TCP server so Godot can subscribe to tracking data.
+    # Start local WebSocket server so Godot can subscribe to tracking data.
     server = FaceTrackServer()
 
     # -------------------------------------------------------------------------
@@ -168,7 +201,7 @@ def main():
     )
     landmarker = vision.FaceLandmarker.create_from_options(options)
 
-    print("Face tracker running. Press 'q' to quit.")
+    logger.info("Face tracker running. Press 'q' to quit.")
 
     frame_timestamp_ms = 0
 
@@ -179,7 +212,7 @@ def main():
         # Read latest frame from webcam stream.
         ret, frame = cap.read()
         if not ret:
-            print("Failed to read from camera.")
+            logger.warning("Failed to read from camera.")
             break
 
         # Mirror for user-friendly preview (like looking in a mirror).
@@ -277,7 +310,7 @@ def main():
     cv2.destroyAllWindows()
     landmarker.close()
     server.close()
-    print("Face tracker stopped.")
+    logger.info("Face tracker stopped.")
 
 
 if __name__ == "__main__":

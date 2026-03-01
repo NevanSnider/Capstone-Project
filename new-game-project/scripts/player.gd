@@ -27,6 +27,8 @@ var rotateSpeed = 0
 #Accessibility Mode Variables
 @export var decelerationRate:float
 
+var server_url = "ws://127.0.0.1:5000"
+
 func _on_player_entered_base():
 	print("Base message received")
 	fuel = maxFuel
@@ -39,6 +41,15 @@ func _ready():
 	
 	var home_base = get_tree().get_current_scene().get_node("HomeBase")
 	home_base.player_entered_base.connect(_on_player_entered_base)
+	
+	var _ws_client = WebSocketPeer.new()
+	var _is_connected = false
+	# Attempt to connect to the WebSocket server
+	var err = _ws_client.connect_to_url(server_url)
+	if err != OK:
+		print("Error connecting to server.")
+	else:
+		print("Connection initiated.")
 
 
 func respawn_to_base():
