@@ -8,7 +8,9 @@ Data format: JSON string per line, e.g.:
   {"head_tilt": -3.2, "mouth_open": true, "face_detected": true}
 
 First time setup:
-  pip3 install opencv-python mediapipe
+  python3 -m venv venv
+  source venv/bin/activate
+  pip install opencv-python mediapipe
   Then run this script - it will auto-download the model file.
 
 Run: python3 face_tracker.py
