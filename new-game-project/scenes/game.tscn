@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://yicge48108e0"]
+[gd_scene load_steps=33 format=3 uid="uid://yicge48108e0"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="AudioStream" uid="uid://ti8w62a0v2dx" path="res://assets/sounds/rocketAudio.mp3" id="2_bt5mj"]
@@ -23,6 +23,8 @@
 [ext_resource type="Script" uid="uid://0mhtekqur4lu" path="res://scripts/fuel_bar.gd" id="13_37s47"]
 [ext_resource type="Script" uid="uid://ccemgw4p7pyfe" path="res://scripts/oxygen_bar.gd" id="14_bt5mj"]
 [ext_resource type="AudioStream" uid="uid://cyir0pae3o2ur" path="res://assets/sounds/ding.mp3" id="15_264po"]
+[ext_resource type="PackedScene" uid="uid://dmhx5xve4wk6k" path="res://scenes/inventory.tscn" id="15_e1j6l"]
+[ext_resource type="Script" uid="uid://6hxhj8erj14o" path="res://scripts/inventory.gd" id="16_pl11u"]
 
 [sub_resource type="GDScript" id="GDScript_rysoc"]
 script/source = "extends SubViewport
@@ -6606,6 +6608,10 @@ offset_bottom = 252.0
 value = 50.0
 script = ExtResource("14_bt5mj")
 player = NodePath("../../Ship")
+
+[node name="Inventory" parent="CanvasLayer" instance=ExtResource("15_e1j6l")]
+process_mode = 3
+script = ExtResource("16_pl11u")
 
 [node name="HomeBase" type="Node2D" parent="."]
 position = Vector2(359, -145)

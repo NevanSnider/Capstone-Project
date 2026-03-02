@@ -14,6 +14,7 @@ func _ready():
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Ship":
 		print("player entered base")
+		GlobalSettings.golden_asteroids = 0
 		player_in_base = true
 		shop_node.set_pib(true)
 		save_manager.save_game(

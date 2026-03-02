@@ -21,6 +21,7 @@ func _process(delta):
 		GameController.asteroid_collect(GameController.asteroid_collected)
 		print("Asteroid Collected!")
 		$"../../Ship".add_money(100)
+		GlobalSettings.golden_asteroids += 1
 		ding.play()
 		await get_tree().create_timer(0.1).timeout
 		queue_free()

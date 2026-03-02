@@ -22,6 +22,7 @@ func _process(delta):
 		ding.play()
 		print($Ding)
 		print("Package Collected!")
+		GlobalSettings.packages += 1
 		emit_signal("package_triggered")
 		
 		await get_tree().create_timer(0.1).timeout
