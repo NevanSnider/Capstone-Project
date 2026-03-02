@@ -66,6 +66,7 @@ func respawn_to_base():
 	
 func _physics_process(delta: float) -> void:
 	
+	#implement tiers
 	if(fuelTier == 1):
 		maxFuel = 14000
 	elif(fuelTier == 2):
