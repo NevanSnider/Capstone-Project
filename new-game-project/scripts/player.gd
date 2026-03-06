@@ -26,8 +26,13 @@ var rotateSpeed = 0
 
 #Accessibility Mode Variables
 @export var decelerationRate:float
+@export var accessibilityRotationSpeed:float
+@export var accesibilityLinearSpeed:float
 
-var server_url = "ws://127.0.0.1:5000"
+var _ws_client = WebSocketPeer.new()
+var _is_connected = false
+
+var server_url = "ws://127.0.0.1:5555"
 
 func _on_player_entered_base():
 	print("Base message received")
@@ -42,16 +47,19 @@ func _ready():
 	var home_base = get_tree().get_current_scene().get_node("HomeBase")
 	home_base.player_entered_base.connect(_on_player_entered_base)
 	
-	var _ws_client = WebSocketPeer.new()
-	var _is_connected = false
+	
 	# Attempt to connect to the WebSocket server
 	var err = _ws_client.connect_to_url(server_url)
 	if err != OK:
 		print("Error connecting to server.")
 	else:
 		print("Connection initiated.")
+		_is_connected=true
 
-
+	
+	
+func _handle_command(packet:String):
+	print(packet)
 func respawn_to_base():
 	var data = SaveManager.load_game()
 	global_position = respawn_point.global_position
@@ -65,6 +73,29 @@ func respawn_to_base():
 
 	
 func _physics_process(delta: float) -> void:
+	var packetDict
+	if AccessibilityHandler.isAccessibilityEnabled:
+		_ws_client.poll()
+		var state = _ws_client.get_ready_state()
+		if state == WebSocketPeer.STATE_OPEN:
+			if not _is_connected:
+				_is_connected = true
+				print("Successfully connected to vision server!")
+
+			# Check if there are any messages waiting
+			while _ws_client.get_available_packet_count() > 0:
+				var packet = _ws_client.get_packet()
+				# Packets are byte arrays, so we need to convert to string
+				packetDict =JSON.parse_string(packet.get_string_from_utf8())
+
+
+		elif state == WebSocketPeer.STATE_CLOSING:
+			# Keep polling until fully closeds
+			pass
+		elif state == WebSocketPeer.STATE_CLOSED:
+			if _is_connected:
+				_is_connected = false
+				print("Connection to vision server lost.")
 	
 	#implement tiers
 	if(fuelTier == 1):
@@ -106,6 +137,17 @@ func _physics_process(delta: float) -> void:
 	elif Input.is_action_pressed("turn_right") and not(Input.is_action_pressed("turn_left") and fuel > 0):
 		rotateSpeed += torque*delta*handlingConstant/currentMass
 		fuel -= 5
+	elif AccessibilityHandler.isAccessibilityEnabled and packetDict:
+		
+		var headTiltAngle = float(packetDict.get("head_tilt","0"))
+		if(headTiltAngle>15):
+			fuel-=5
+			rotateSpeed = accessibilityRotationSpeed * delta
+		elif (headTiltAngle<-15):
+			rotateSpeed = accessibilityRotationSpeed * delta * -1
+			fuel-=5
+		else:
+			rotateSpeed=0
 		
 	else:
 		if AccessibilityHandler.isAccessibilityEnabled: #IF accessibility mode is on we want rotation to be non inertial
@@ -120,10 +162,19 @@ func _physics_process(delta: float) -> void:
 		if not rocketSound.playing:
 			rocketSound.play()
 	else:
-		if AccessibilityHandler.isAccessibilityEnabled:
+		if AccessibilityHandler.isAccessibilityEnabled and packetDict:
 			#IF accessibility is active, add deceleration to improve movement
-			if velocity.length()>0:
-				velocity = velocity.lerp(Vector2.ZERO, delta*decelerationRate)
+			var mouthOpen = bool(packetDict.get("mouth_open"))
+			if mouthOpen:
+				velocity += Vector2.UP.rotated(rotation)*delta*accesibilityLinearSpeed
+				rocket.play("thrust")
+				if not rocketSound.playing:
+					rocketSound.play()
+				fuel-=10
+			else:
+				if velocity.length()>0:
+					velocity = velocity.lerp(Vector2.ZERO, delta*decelerationRate)
+					fuel-=5
 		
 		rocket.play("default")
 		if  rocketSound.playing:
