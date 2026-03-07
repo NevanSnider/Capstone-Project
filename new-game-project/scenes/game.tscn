@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://yicge48108e0"]
+[gd_scene load_steps=37 format=3 uid="uid://yicge48108e0"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="AudioStream" uid="uid://ti8w62a0v2dx" path="res://assets/sounds/rocketAudio.mp3" id="2_bt5mj"]
@@ -25,6 +25,10 @@
 [ext_resource type="AudioStream" uid="uid://cyir0pae3o2ur" path="res://assets/sounds/ding.mp3" id="15_264po"]
 [ext_resource type="PackedScene" uid="uid://dmhx5xve4wk6k" path="res://scenes/inventory.tscn" id="15_e1j6l"]
 [ext_resource type="Script" uid="uid://6hxhj8erj14o" path="res://scripts/inventory.gd" id="16_pl11u"]
+[ext_resource type="Texture2D" uid="uid://jl6phhq7raf3" path="res://assets/cobalt-asteroid.png" id="23_suyxu"]
+[ext_resource type="Texture2D" uid="uid://vo4i5gle183r" path="res://assets/copper-asteroid.png" id="24_sgl2t"]
+[ext_resource type="Texture2D" uid="uid://xlmre7anye5f" path="res://assets/titanium-asteroid.png" id="25_qouja"]
+[ext_resource type="Texture2D" uid="uid://oe8vc2op78b2" path="res://assets/iron-asteroid.png" id="26_wljb1"]
 
 [sub_resource type="GDScript" id="GDScript_rysoc"]
 script/source = "extends SubViewport
@@ -6492,6 +6496,7 @@ position = Vector2(194, -120)
 zoom = Vector2(4, 4)
 
 [node name="Pointing to Base" type="Sprite2D" parent="CanvasLayer/MinimapContainer" node_paths=PackedStringArray("player", "respawn_point", "minimap_container", "main_camera")]
+z_index = 5
 position = Vector2(144, 42)
 texture = ExtResource("7_ca42v")
 script = ExtResource("8_ca42v")
@@ -6501,6 +6506,7 @@ minimap_container = NodePath("..")
 main_camera = NodePath("../../../Camera2D")
 
 [node name="Pointing to Package" type="Sprite2D" parent="CanvasLayer/MinimapContainer" node_paths=PackedStringArray("player", "respawn_point", "minimap_container", "main_camera")]
+z_index = 5
 position = Vector2(144, 42)
 texture = ExtResource("7_ca42v")
 script = ExtResource("8_ssvqc")
@@ -6516,7 +6522,7 @@ texture = ExtResource("8_rysoc")
 stretch_mode = 4
 
 [node name="Shop" type="Control" parent="CanvasLayer"]
-visible = false
+z_index = 6
 layout_mode = 3
 anchors_preset = 0
 offset_left = 575.0
@@ -6564,37 +6570,77 @@ layout_mode = 0
 offset_left = -277.0
 offset_top = -126.0
 offset_right = -81.0
-offset_bottom = -62.0
+offset_bottom = -6.0
 text = "Increase Fuel Tank
-Maximum. $100"
+Maximum.
+Price:
+100 Gold, 100 Cobalt"
 
 [node name="TextEdit2" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0
 offset_left = -80.0
 offset_top = 93.0
-offset_right = 116.0
-offset_bottom = 158.0
+offset_right = 119.0
+offset_bottom = 237.0
 text = "Increase Thruster
-Power. $100"
+Power.
+Price:
+100 Copper, 100 Iron
+"
 
 [node name="TextEdit3" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0
 offset_left = 113.0
 offset_top = -127.0
 offset_right = 309.0
-offset_bottom = -63.0
+offset_bottom = -7.0
 text = "Increase Oxygen Tank
-Maximum. $100"
+Maximum.
+Price:
+100 Gold, 100 Titanium"
 
 [node name="TextEdit5" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0
-offset_left = 427.0
+offset_left = 400.0
 offset_top = -274.0
 offset_right = 532.0
 offset_bottom = -231.0
-placeholder_text = "Money: 0"
+placeholder_text = "Gold: 0"
+
+[node name="TextEdit6" type="TextEdit" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = -218.0
+offset_right = 532.0
+offset_bottom = -175.0
+placeholder_text = "Cobalt: 0"
+
+[node name="TextEdit7" type="TextEdit" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = 401.0
+offset_top = -162.0
+offset_right = 532.0
+offset_bottom = -119.0
+placeholder_text = "Titanium: 0"
+
+[node name="TextEdit8" type="TextEdit" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = 401.0
+offset_top = -105.0
+offset_right = 531.0
+offset_bottom = -62.0
+placeholder_text = "Copper: 0"
+
+[node name="TextEdit9" type="TextEdit" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = 400.0
+offset_top = -46.0
+offset_right = 531.0
+offset_bottom = -3.0
+placeholder_text = "Iron: 0"
 
 [node name="FuelBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+z_index = 6
 offset_right = 227.0
 offset_bottom = 126.0
 value = 50.0
@@ -6602,6 +6648,7 @@ script = ExtResource("13_37s47")
 player = NodePath("../../Ship")
 
 [node name="OxygenBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
+z_index = 6
 offset_top = 126.0
 offset_right = 227.0
 offset_bottom = 252.0
@@ -6654,6 +6701,498 @@ position = Vector2(36, 45)
 shape = SubResource("RectangleShape2D_dinhu")
 
 [node name="Collectible Asteroids" type="Node2D" parent="."]
+
+[node name="Cobalt Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(556, -473)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid2" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(1088, -281)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid2" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid3" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-1076, 123)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid3" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid4" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(1290, 716)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid4" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid5" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(3804, 227)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid5" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid6" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-8064, 1667)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid6" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid7" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-12175, 227)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid7" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid8" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(2294, 7589)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid8" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid9" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(8263, 744)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid9" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid10" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-10138, -1666)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid10" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid11" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-14355, 2277)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid11" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid12" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-10960, -6814)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid12" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid13" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-19065, -900)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid13" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid14" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-3129, 1729)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid14" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid15" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(3443, -4295)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid15" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid16" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-445, -4185)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid16" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid17" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-2145, -3220)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid17" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid18" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-459, -2742)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid18" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid19" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-173, -930)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid19" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Cobalt Asteroid20" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-1830, -418)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid20" index="0"]
+texture = ExtResource("23_suyxu")
+
+[node name="Copper Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-940, 718)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid2" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(1474, 1037)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid2" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid3" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-292, 1688)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid3" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid4" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-4452, 255)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid4" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid5" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-2327, -1804)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid5" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid6" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-5341, -4222)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid6" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid7" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-8508, 250)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid7" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid8" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-830, 4684)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid8" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid9" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(5715, 2880)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid9" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid10" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(8613, -1285)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid10" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid11" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(8613, -1285)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid11" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid12" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-99, 12389)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid12" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid13" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-13672, 8174)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid13" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid14" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-21302, -9669)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid14" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid15" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-9957, -8185)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid15" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid16" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-6866, -8123)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid16" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Copper Asteroid17" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-653, -6979)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid17" index="0"]
+texture = ExtResource("24_sgl2t")
+
+[node name="Titanium Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(323, 602)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid2" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(440, 2595)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid2" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid3" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-3708, 2178)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid3" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid4" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-1289, 605)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid4" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid5" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-4960, -2792)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid5" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid6" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-7522, -349)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid6" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid7" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(3848, -1898)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid7" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid8" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(8435, 5223)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid8" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid9" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(6904, 7264)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid9" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid10" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-1187, 7628)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid10" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid11" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-9205, 4348)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid11" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid12" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-11756, 1724)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid12" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid13" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-8476, -11469)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid13" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid14" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(7487, -10157)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid14" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid15" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(16088, -13729)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid15" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid16" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(20389, -12344)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid16" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid17" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(21920, -7169)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid17" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid18" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(24107, 412)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid18" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid19" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(21118, 4494)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid19" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid20" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(15505, 4786)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid20" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Titanium Asteroid21" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-4248, 6535)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid21" index="0"]
+texture = ExtResource("25_qouja")
+
+[node name="Iron Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-884, -79)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid2" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-1711, -127)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid2" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid3" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-5382, -246)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid3" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid4" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-3237, -2701)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid4" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid5" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(4164, -4608)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid5" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid6" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(4386, -2578)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid6" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid7" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(8859, -500)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid7" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid8" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(13523, 1642)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid8" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid9" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(14720, 4494)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid9" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid10" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(9817, 10235)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid10" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid11" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-1403, 9781)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid11" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid12" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-5730, 14772)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid12" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid13" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-8871, 15278)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid13" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid14" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-10372, 12975)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid14" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid15" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-21151, 802)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid15" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid16" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-17118, -8060)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid16" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid17" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-16919, -3530)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid17" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid18" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-7261, -10400)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid18" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid19" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(5882, -16026)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid19" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid20" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(18876, -10998)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid20" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid21" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(23904, -4377)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid21" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid22" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(30824, 1597)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid22" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid23" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(25447, 6526)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid23" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid24" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(34010, 7571)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid24" index="0"]
+texture = ExtResource("26_wljb1")
 
 [node name="Golden Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
 position = Vector2(-499, 897)
@@ -6835,8 +7374,91 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="CanvasLayer/Shop/Button2" to="Ship" method="_on_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/Button3" to="Ship" method="_on_button_3_pressed"]
 [connection signal="body_entered" from="HomeBase/Base" to="HomeBase" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_area_2d_body_exited"]
 [connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_base_body_exited"]
+[connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_area_2d_body_exited"]
 [connection signal="body_shape_entered" from="HomeBase/Base" to="HomeBase/Sprite2D" method="_on_area_2d_body_shape_entered"]
 [connection signal="body_entered" from="Package/Package" to="Package" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Package/Package" to="Package" method="_on_area_2d_body_exited"]
+
+[editable path="Collectible Asteroids/Cobalt Asteroid"]
+[editable path="Collectible Asteroids/Cobalt Asteroid2"]
+[editable path="Collectible Asteroids/Cobalt Asteroid3"]
+[editable path="Collectible Asteroids/Cobalt Asteroid4"]
+[editable path="Collectible Asteroids/Cobalt Asteroid5"]
+[editable path="Collectible Asteroids/Cobalt Asteroid6"]
+[editable path="Collectible Asteroids/Cobalt Asteroid7"]
+[editable path="Collectible Asteroids/Cobalt Asteroid8"]
+[editable path="Collectible Asteroids/Cobalt Asteroid9"]
+[editable path="Collectible Asteroids/Cobalt Asteroid10"]
+[editable path="Collectible Asteroids/Cobalt Asteroid11"]
+[editable path="Collectible Asteroids/Cobalt Asteroid12"]
+[editable path="Collectible Asteroids/Cobalt Asteroid13"]
+[editable path="Collectible Asteroids/Cobalt Asteroid14"]
+[editable path="Collectible Asteroids/Cobalt Asteroid15"]
+[editable path="Collectible Asteroids/Cobalt Asteroid16"]
+[editable path="Collectible Asteroids/Cobalt Asteroid17"]
+[editable path="Collectible Asteroids/Cobalt Asteroid18"]
+[editable path="Collectible Asteroids/Cobalt Asteroid19"]
+[editable path="Collectible Asteroids/Cobalt Asteroid20"]
+[editable path="Collectible Asteroids/Copper Asteroid"]
+[editable path="Collectible Asteroids/Copper Asteroid2"]
+[editable path="Collectible Asteroids/Copper Asteroid3"]
+[editable path="Collectible Asteroids/Copper Asteroid4"]
+[editable path="Collectible Asteroids/Copper Asteroid5"]
+[editable path="Collectible Asteroids/Copper Asteroid6"]
+[editable path="Collectible Asteroids/Copper Asteroid7"]
+[editable path="Collectible Asteroids/Copper Asteroid8"]
+[editable path="Collectible Asteroids/Copper Asteroid9"]
+[editable path="Collectible Asteroids/Copper Asteroid10"]
+[editable path="Collectible Asteroids/Copper Asteroid11"]
+[editable path="Collectible Asteroids/Copper Asteroid12"]
+[editable path="Collectible Asteroids/Copper Asteroid13"]
+[editable path="Collectible Asteroids/Copper Asteroid14"]
+[editable path="Collectible Asteroids/Copper Asteroid15"]
+[editable path="Collectible Asteroids/Copper Asteroid16"]
+[editable path="Collectible Asteroids/Copper Asteroid17"]
+[editable path="Collectible Asteroids/Titanium Asteroid"]
+[editable path="Collectible Asteroids/Titanium Asteroid2"]
+[editable path="Collectible Asteroids/Titanium Asteroid3"]
+[editable path="Collectible Asteroids/Titanium Asteroid4"]
+[editable path="Collectible Asteroids/Titanium Asteroid5"]
+[editable path="Collectible Asteroids/Titanium Asteroid6"]
+[editable path="Collectible Asteroids/Titanium Asteroid7"]
+[editable path="Collectible Asteroids/Titanium Asteroid8"]
+[editable path="Collectible Asteroids/Titanium Asteroid9"]
+[editable path="Collectible Asteroids/Titanium Asteroid10"]
+[editable path="Collectible Asteroids/Titanium Asteroid11"]
+[editable path="Collectible Asteroids/Titanium Asteroid12"]
+[editable path="Collectible Asteroids/Titanium Asteroid13"]
+[editable path="Collectible Asteroids/Titanium Asteroid14"]
+[editable path="Collectible Asteroids/Titanium Asteroid15"]
+[editable path="Collectible Asteroids/Titanium Asteroid16"]
+[editable path="Collectible Asteroids/Titanium Asteroid17"]
+[editable path="Collectible Asteroids/Titanium Asteroid18"]
+[editable path="Collectible Asteroids/Titanium Asteroid19"]
+[editable path="Collectible Asteroids/Titanium Asteroid20"]
+[editable path="Collectible Asteroids/Titanium Asteroid21"]
+[editable path="Collectible Asteroids/Iron Asteroid"]
+[editable path="Collectible Asteroids/Iron Asteroid2"]
+[editable path="Collectible Asteroids/Iron Asteroid3"]
+[editable path="Collectible Asteroids/Iron Asteroid4"]
+[editable path="Collectible Asteroids/Iron Asteroid5"]
+[editable path="Collectible Asteroids/Iron Asteroid6"]
+[editable path="Collectible Asteroids/Iron Asteroid7"]
+[editable path="Collectible Asteroids/Iron Asteroid8"]
+[editable path="Collectible Asteroids/Iron Asteroid9"]
+[editable path="Collectible Asteroids/Iron Asteroid10"]
+[editable path="Collectible Asteroids/Iron Asteroid11"]
+[editable path="Collectible Asteroids/Iron Asteroid12"]
+[editable path="Collectible Asteroids/Iron Asteroid13"]
+[editable path="Collectible Asteroids/Iron Asteroid14"]
+[editable path="Collectible Asteroids/Iron Asteroid15"]
+[editable path="Collectible Asteroids/Iron Asteroid16"]
+[editable path="Collectible Asteroids/Iron Asteroid17"]
+[editable path="Collectible Asteroids/Iron Asteroid18"]
+[editable path="Collectible Asteroids/Iron Asteroid19"]
+[editable path="Collectible Asteroids/Iron Asteroid20"]
+[editable path="Collectible Asteroids/Iron Asteroid21"]
+[editable path="Collectible Asteroids/Iron Asteroid22"]
+[editable path="Collectible Asteroids/Iron Asteroid23"]
+[editable path="Collectible Asteroids/Iron Asteroid24"]

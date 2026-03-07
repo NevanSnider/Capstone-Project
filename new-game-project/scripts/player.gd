@@ -15,6 +15,11 @@ var currentMass: int = 30000+fuel
 var handlingConstant: int = 50000
 
 var money: int = 0
+var cobalt: int = 0
+var copper: int = 0
+var titanium: int = 0
+var iron: int = 0
+
 @export var force: float = 50.0
 @export var torque: float = .05
 var rotateSpeed = 0
@@ -197,7 +202,24 @@ func _physics_process(delta: float) -> void:
 #Adds money to the balance when an asteroid is collected and updates the shop menu interface
 func add_money(amount):
 	money += amount;
-	$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+	$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+
+func add_cobalt(amount):
+	print("cobalt func reached")
+	cobalt += amount;
+	$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+
+func add_titanium(amount):
+	titanium += amount;
+	$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+	
+func add_copper(amount):
+	copper += amount;
+	$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+	
+func add_iron(amount):
+	iron += amount;
+	$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
 
 # These are all the buttons attached to specific upgrades. When upgrades are added it
 # will require a specific amount of money to purchase the item
@@ -205,93 +227,146 @@ func add_money(amount):
 #Oxygen Upgrades
 func _on_button_2_pressed() -> void:
 	if (oxygenTier == 1):
-		if (money >= 100):
+		if (money >= 100 and titanium >= 100):
 			oxygenTier += 1
 			money -= 100
+			titanium -= 100
 			$"../CanvasLayer/Shop/Button2".text = "Oxygen Tier 2"
-			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
-			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Oxygen Tank\nMaximum. $200"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
+			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Oxygen Tank\nMaximum.\nPrice:\n200 Gold, 200 Titanium"
 
 			
 	if (oxygenTier == 2):
-		if (money >= 200):
+		if (money >= 200 and titanium >= 200):
 			oxygenTier += 1
 			money -= 200
+			titanium -= 200
 			$"../CanvasLayer/Shop/Button2".text = "Oxygen Tier 3"
 			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
-			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Oxygen Tank\nMaximum. $300"
+			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Oxygen Tank\nMaximum.\nPrice:\n300 Gold, 300 Titanium"
 			
 			
 	if (oxygenTier == 3):
-		if (money >= 300):
+		if (money >= 300 and titanium >= 300):
 			oxygenTier += 1
 			money -= 300
+			titanium -= 300
 			$"../CanvasLayer/Shop/Button2".text = "Oxygen Tier 4"
-			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
-			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Oxygen Tank\nMaximum. $400"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
+			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Oxygen Tank\nMaximum.\nPrice:\n400 Gold, 400 Titanium"
 			
 	if (oxygenTier == 4):
-		if (money >= 400):
+		if (money >= 400 and titanium >= 400):
 			oxygenTier += 1
 			money -= 400
+			titanium -= 400
 			$"../CanvasLayer/Shop/Button2".text = "Oxygen Max Reached"
-			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
 			$"../CanvasLayer/Shop/TextEdit2".text = ""
 
 #fuel upgrades
 func _on_button_pressed() -> void:
 	if (fuelTier == 1):
-		if (money >= 100):
+		if (money >= 100 and cobalt >= 100):
 			fuelTier += 1
 			money -= 100
+			cobalt -= 100
 			$"../CanvasLayer/Shop/Button".text = "Fuel Tier 2"
-			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
-			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum. $200"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
+			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n200 Gold, 200 Cobalt"
 			
 	if (fuelTier == 2):
-		if (money >= 200):
+		if (money >= 200 and cobalt >= 200):
 			fuelTier += 1
 			money -= 200
+			cobalt -= 200
 			$"../CanvasLayer/Shop/Button".text = "Fuel Tier 3"
-			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
-			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum. $300"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
+			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n300 Gold, 300 Cobalt"
 			
 	if (fuelTier == 3):
-		if (money >= 300):
+		if (money >= 300 and cobalt >= 300):
 			fuelTier += 1
 			money -= 300
+			cobalt -= 300
 			$"../CanvasLayer/Shop/Button".text = "Fuel Tier 4"
-			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
-			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum. $400"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
+			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n400 Gold, 400 Cobalt"
 			
 	if (fuelTier == 4):
-		if (money >= 400):
+		if (money >= 400 and cobalt >= 400):
 			fuelTier += 1
 			money -= 400
+			cobalt -= 400
 			$"../CanvasLayer/Shop/Button".text = "Fuel Max Reached"
-			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
-			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum. $400"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
+			$"../CanvasLayer/Shop/TextEdit".text = ""
 
 #Thruster upgrades
 func _on_button_3_pressed() -> void:
 	if (thrusterTier == 1):
-		if (money >= 100):
+		if (copper >= 100 and iron >= 100):
 			thrusterTier += 1
-			money -= 100
+			copper -= 100
+			iron -= 100
 			$"../CanvasLayer/Shop/Button3".text = "Thruster Tier 2"
-			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
-			$"../CanvasLayer/Shop/TextEdit".text = ""
+			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
+			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Thruster\nPower.\nPrice:\n200 Copper, 200 Iron"
 			
 	if (thrusterTier == 2):
-		if (money >= 200):
+		if (copper >= 200 and iron >= 200):
 			thrusterTier += 1
-			money -= 200
+			copper -= 200
+			iron -= 200
 			$"../CanvasLayer/Shop/Button3".text = "Thruster Tier 3"
-			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
+			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Thruster\nPower.\nPrice:\n300 Copper, 300 Iron"
 			
 	if (thrusterTier == 3):
-		if (money >= 300):
+		if (copper >= 300 and iron >= 300):
 			thrusterTier += 1
 			money -= 300
+			iron -= 300
 			$"../CanvasLayer/Shop/Button3".text = "Thruster Max Reached"
-			$"../CanvasLayer/Shop/TextEdit5".text = "Money: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
+			$"../CanvasLayer/Shop/TextEdit2".text = ""
