@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://yicge48108e0"]
+[gd_scene load_steps=40 format=3 uid="uid://yicge48108e0"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="AudioStream" uid="uid://ti8w62a0v2dx" path="res://assets/sounds/rocketAudio.mp3" id="2_bt5mj"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://67q43j70v2jc" path="res://scenes/asteroid.tscn" id="2_yqjtg"]
 [ext_resource type="AudioStream" uid="uid://38r46m0yybm4" path="res://assets/sounds/crash.mp3" id="3_1kice"]
 [ext_resource type="PackedScene" uid="uid://c8c7a6lpebb2q" path="res://scenes/golden_asteroid.tscn" id="4_gee14"]
+[ext_resource type="AudioStream" uid="uid://cy825vrqahef" path="res://assets/sounds/turningRocketAudio.mp3" id="4_qouja"]
 [ext_resource type="Script" uid="uid://b8i7e8cph71ra" path="res://scripts/home_base.gd" id="5_gee14"]
 [ext_resource type="Texture2D" uid="uid://by6xhbsgohdnw" path="res://assets/home_base.png" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://bw46yhhpv1dcv" path="res://scenes/pause_menu.tscn" id="5_kvuet"]
@@ -107,6 +108,10 @@ volume_db = 8.0
 [node name="Crash" type="AudioStreamPlayer" parent="Ship"]
 stream = ExtResource("3_1kice")
 volume_db = 12.0
+
+[node name="TurnRocketSounds" type="AudioStreamPlayer" parent="Ship"]
+stream = ExtResource("4_qouja")
+volume_db = -5.0
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 ignore_rotation = false
@@ -7465,8 +7470,8 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="CanvasLayer/Shop/Button2" to="Ship" method="_on_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/Button3" to="Ship" method="_on_button_3_pressed"]
 [connection signal="body_entered" from="HomeBase/Base" to="HomeBase" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_base_body_exited"]
 [connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_area_2d_body_exited"]
+[connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_base_body_exited"]
 [connection signal="body_shape_entered" from="HomeBase/Base" to="HomeBase/Sprite2D" method="_on_area_2d_body_shape_entered"]
 [connection signal="body_entered" from="Package/Package" to="Package" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Package/Package" to="Package" method="_on_area_2d_body_exited"]

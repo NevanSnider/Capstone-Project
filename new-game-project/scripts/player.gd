@@ -26,6 +26,8 @@ var rotateSpeed = 0
 @onready var rocket: AnimatedSprite2D = $AnimatedSprite2D
 @onready var respawn_point = get_tree().get_current_scene().get_node("HomeBase/RespawnPoint")
 @onready var rocketSound: AudioStreamPlayer = $RocketSounds
+@onready var turnRocketSound: AudioStreamPlayer = $TurnRocketSounds
+
 @onready var crash: AudioStreamPlayer = $Crash
 
 
@@ -135,13 +137,18 @@ func _physics_process(delta: float) -> void:
 		
 	currentMass = 30000+fuel
 	# Add the gravity.
-	if Input.is_action_pressed("turn_left") and not(Input.is_action_pressed("turn_right") and fuel > 0) :
+	if Input.is_action_pressed("turn_left") and not Input.is_action_pressed("turn_right") and fuel > 0:
 		rotateSpeed -= torque*delta*handlingConstant/currentMass
 		fuel -= 5
+		if not turnRocketSound.playing:
+			turnRocketSound.play()		
 		
-	elif Input.is_action_pressed("turn_right") and not(Input.is_action_pressed("turn_left") and fuel > 0):
+	elif Input.is_action_pressed("turn_right") and not Input.is_action_pressed("turn_left") and fuel > 0:
 		rotateSpeed += torque*delta*handlingConstant/currentMass
 		fuel -= 5
+		if not turnRocketSound.playing:
+			turnRocketSound.play()		
+					
 	elif AccessibilityHandler.isAccessibilityEnabled and packetDict:
 		
 		var headTiltAngle = float(packetDict.get("head_tilt","0"))
@@ -154,9 +161,11 @@ func _physics_process(delta: float) -> void:
 		else:
 			rotateSpeed=0
 		
-	else:
+	else:		
 		if AccessibilityHandler.isAccessibilityEnabled: #IF accessibility mode is on we want rotation to be non inertial
 			rotateSpeed = 0
+		if  turnRocketSound.playing:
+			turnRocketSound.stop()				
 	
 	rotation += rotateSpeed
 		
