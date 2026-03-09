@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://yicge48108e0"]
+[gd_scene load_steps=39 format=3 uid="uid://yicge48108e0"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="AudioStream" uid="uid://ti8w62a0v2dx" path="res://assets/sounds/rocketAudio.mp3" id="2_bt5mj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://b8i7e8cph71ra" path="res://scripts/home_base.gd" id="5_gee14"]
 [ext_resource type="Texture2D" uid="uid://by6xhbsgohdnw" path="res://assets/home_base.png" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://bw46yhhpv1dcv" path="res://scenes/pause_menu.tscn" id="5_kvuet"]
+[ext_resource type="Script" uid="uid://dqbfycmpq2xfe" path="res://scripts/task_log.gd" id="6_sgl2t"]
 [ext_resource type="Script" uid="uid://g6jnubso3pr4" path="res://scripts/package.gd" id="7_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://bpb6kkr30gjqp" path="res://assets/pointer.png" id="7_ca42v"]
 [ext_resource type="Script" uid="uid://yf1igl8jd20y" path="res://scripts/homebase_point.gd" id="8_ca42v"]
@@ -29,6 +30,8 @@
 [ext_resource type="Texture2D" uid="uid://vo4i5gle183r" path="res://assets/copper-asteroid.png" id="24_sgl2t"]
 [ext_resource type="Texture2D" uid="uid://xlmre7anye5f" path="res://assets/titanium-asteroid.png" id="25_qouja"]
 [ext_resource type="Texture2D" uid="uid://oe8vc2op78b2" path="res://assets/iron-asteroid.png" id="26_wljb1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sgl2t"]
 
 [sub_resource type="GDScript" id="GDScript_rysoc"]
 script/source = "extends SubViewport
@@ -6443,6 +6446,74 @@ scale = Vector2(1.56, 1.56)
 position = Vector2(62, -5847)
 scale = Vector2(1.56, 1.56)
 
+[node name="TaskLog" type="CanvasLayer" parent="."]
+layer = 10
+script = ExtResource("6_sgl2t")
+
+[node name="ColorRect" type="ColorRect" parent="TaskLog"]
+offset_right = 1153.0
+offset_bottom = 646.0
+color = Color(0.40199035, 0.9999998, 0.56866187, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="TaskLog"]
+offset_right = 1153.0
+offset_bottom = 40.0
+color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="TaskLog"]
+offset_left = -1.0
+offset_right = 39.0
+offset_bottom = 646.0
+color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="TaskLog"]
+offset_top = 609.0
+offset_right = 1153.0
+offset_bottom = 649.0
+color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="TaskLog"]
+offset_left = 1113.0
+offset_right = 1153.0
+offset_bottom = 646.0
+color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+
+[node name="Panel" type="Panel" parent="TaskLog"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_sgl2t")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TaskLog/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -533.0
+offset_top = -285.0
+offset_right = 53.0
+offset_bottom = 259.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="TaskLog/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.30361184, 9.62615e-08, 1)
+text = "ACTIVE TASKS"
+
+[node name="TaskScrollContainer" type="ScrollContainer" parent="TaskLog/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TaskListContainer" type="VBoxContainer" parent="TaskLog/Panel/VBoxContainer/TaskScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 script = ExtResource("9_0tnpc")
@@ -6638,6 +6709,26 @@ offset_top = -46.0
 offset_right = 531.0
 offset_bottom = -3.0
 placeholder_text = "Iron: 0"
+
+[node name="Task Board" type="RichTextLabel" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = -575.0
+offset_right = -351.0
+offset_bottom = 27.0
+theme_override_colors/default_color = Color(0, 1, 0, 1)
+text = "Task Board"
+horizontal_alignment = 1
+
+[node name="TaskScrollContainer" type="ScrollContainer" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = -564.0
+offset_top = 39.0
+offset_right = -329.0
+offset_bottom = 332.0
+
+[node name="TaskContainer" type="VBoxContainer" parent="CanvasLayer/Shop/TaskScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="FuelBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
 z_index = 6

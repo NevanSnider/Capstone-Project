@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=3 uid="uid://4ygaanp7ir20"]
+
+[ext_resource type="Script" uid="uid://dqbfycmpq2xfe" path="res://scripts/task_log.gd" id="1_qnt2v"]
+
+[node name="TaskLog" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qnt2v")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 646.0
+color = Color(0.40199035, 0.9999998, 0.56866187, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 40.0
+color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -1.0
+offset_right = 39.0
+offset_bottom = 646.0
+color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="."]
+layout_mode = 0
+offset_top = 609.0
+offset_right = 1153.0
+offset_bottom = 649.0
+color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+
+[node name="ColorRect5" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 1113.0
+offset_right = 1153.0
+offset_bottom = 646.0
+color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 126.0
+offset_right = 142.0
+offset_bottom = 166.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 92.0
+offset_right = 162.0
+offset_bottom = 132.0
+
+[node name="TitleLabel" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="TaskScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="TaskListContainer" type="VBoxContainer" parent="Panel/VBoxContainer/TaskScrollContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2

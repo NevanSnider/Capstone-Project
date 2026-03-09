@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://5eu4gewybb5f"]
+
+[ext_resource type="Script" uid="uid://co7ci37lqla5n" path="res://scripts/task_card.gd" id="1_j3t4s"]
+
+[node name="TaskCard" type="Panel"]
+script = ExtResource("1_j3t4s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 118.0
+offset_bottom = 139.0
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Task Title"
+
+[node name="DescriptionLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Description"
+
+[node name="RequirementsLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Requirements: "
+
+[node name="RewardLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Reward: "
+
+[node name="AcceptButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "ACCEPT"
