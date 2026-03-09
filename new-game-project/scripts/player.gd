@@ -46,7 +46,7 @@ func _on_player_entered_base():
 	fuel = maxFuel
 	oxygen = maxOxygen
 	
-	
+
 func _ready():
 	var data = SaveManager.load_game()
 	GameController.package_collected = data["package_collected"]
@@ -67,6 +67,7 @@ func _ready():
 	
 func _handle_command(packet:String):
 	print(packet)
+	#respawn function
 func respawn_to_base():
 	var data = SaveManager.load_game()
 	global_position = respawn_point.global_position
