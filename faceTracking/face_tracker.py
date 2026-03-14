@@ -204,6 +204,7 @@ def main():
     logger.info("Face tracker running. Press 'q' to quit.")
 
     frame_timestamp_ms = 0
+    brow_cooldown = 0  # frames remaining before another item_pickup can fire
 
     # -------------------------------------------------------------------------
     # 5) Main processing loop (runs once per camera frame)
@@ -233,6 +234,8 @@ def main():
         head_tilt = 0.0
         mouth_open = False
         face_detected = False
+        item_pickup = False
+        brows_raised = False
 
         if results.face_landmarks:
             face_detected = True
@@ -260,16 +263,46 @@ def main():
             mouth_distance = abs(upper_lip.y - lower_lip.y)
             mouth_open = mouth_distance > 0.02
 
+
+            left_brow = landmarks[105]
+            right_brow = landmarks[334]
+            left_eye_top = landmarks[159]
+            right_eye_top = landmarks[386]
+
+            # Normalize the brow-eye vertical gap by the inter-eye distance so
+            # the threshold is independent of how far the face is from the camera.
+            # inter_eye_dist scales with face size and keeps the ratio consistent.
+            inter_eye_dist = abs(right_eye.x - left_eye.x)
+            raw_brow_gap = (
+                (left_eye_top.y - left_brow.y) +
+                (right_eye_top.y - right_brow.y)
+            ) / 2.0
+            brow_raise_ratio = (raw_brow_gap / inter_eye_dist) if inter_eye_dist > 0 else 0.0
+            # Threshold ~0.35: neutral is ~0.25-0.30, a clear raise goes above 0.35.
+            brows_raised = brow_raise_ratio > 0.5
+
+            # Rising-edge trigger: fire item_pickup only on the first frame the
+            # brows go up, then lock out for ~0.66 s (20 frames at ~30 fps).
+            if brows_raised and brow_cooldown == 0:
+                item_pickup = True
+                brow_cooldown = 20
+
+            if brow_cooldown > 0:
+                brow_cooldown -= 1
+
             # Debug HUD overlay for local operator visibility.
             cv2.putText(frame, f"Tilt: {head_tilt:.1f} deg", (10, 30),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
             cv2.putText(frame, f"Mouth: {'OPEN' if mouth_open else 'closed'}", (10, 60),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+            cv2.putText(frame, f"Brows: {'RAISED' if brows_raised else 'normal'} ({brow_raise_ratio:.3f})", (10, 90),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7,
+                        (0, 255, 255) if brows_raised else (0, 255, 0), 2)
 
             # Show whether any Godot client is currently connected.
             n_clients = len(server.clients)
             status = f"Godot: {'connected' if n_clients > 0 else 'waiting...'}"
-            cv2.putText(frame, status, (10, 90),
+            cv2.putText(frame, status, (10, 120),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7,
                         (0, 255, 0) if n_clients > 0 else (0, 165, 255), 2)
 
@@ -281,6 +314,11 @@ def main():
             # Red = lip points used for mouth-open detection.
             cv2.circle(frame, (int(upper_lip.x * w), int(upper_lip.y * h)), 3, (0, 0, 255), -1)
             cv2.circle(frame, (int(lower_lip.x * w), int(lower_lip.y * h)), 3, (0, 0, 255), -1)
+            # Yellow = brow/eye points used for eyebrow-raise detection.
+            cv2.circle(frame, (int(left_brow.x * w), int(left_brow.y * h)), 3, (0, 255, 255), -1)
+            cv2.circle(frame, (int(right_brow.x * w), int(right_brow.y * h)), 3, (0, 255, 255), -1)
+            cv2.circle(frame, (int(left_eye_top.x * w), int(left_eye_top.y * h)), 3, (0, 255, 255), -1)
+            cv2.circle(frame, (int(right_eye_top.x * w), int(right_eye_top.y * h)), 3, (0, 255, 255), -1)
         else:
             # Visual feedback when no valid face is present in the frame.
             cv2.putText(frame, "No face detected", (10, 30),
@@ -294,7 +332,8 @@ def main():
         server.send({
             "head_tilt": round(head_tilt, 2),
             "mouth_open": mouth_open,
-            "face_detected": face_detected
+            "face_detected": face_detected,
+            "item_pickup": item_pickup
         })
 
         # Local preview window + quit key handling.
