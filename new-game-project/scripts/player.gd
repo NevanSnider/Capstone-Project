@@ -24,6 +24,7 @@ var iron: int = 0
 @export var torque: float = .05
 var rotateSpeed = 0
 @onready var rocket: AnimatedSprite2D = $AnimatedSprite2D
+@onready var side_thrusters: AnimatedSprite2D = $AnimatedSprite2D2
 @onready var respawn_point = get_tree().get_current_scene().get_node("HomeBase/RespawnPoint")
 @onready var rocketSound: AudioStreamPlayer = $RocketSounds
 @onready var turnRocketSound: AudioStreamPlayer = $TurnRocketSounds
@@ -141,12 +142,14 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("turn_left") and not Input.is_action_pressed("turn_right") and fuel > 0:
 		rotateSpeed -= torque*delta*handlingConstant/currentMass
 		fuel -= 5
+		side_thrusters.play("right thrust")
 		if not turnRocketSound.playing:
 			turnRocketSound.play()		
 		
 	elif Input.is_action_pressed("turn_right") and not Input.is_action_pressed("turn_left") and fuel > 0:
 		rotateSpeed += torque*delta*handlingConstant/currentMass
 		fuel -= 5
+		side_thrusters.play("left thrust")
 		if not turnRocketSound.playing:
 			turnRocketSound.play()		
 					
@@ -162,7 +165,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			rotateSpeed=0
 		
-	else:		
+	else:
+		side_thrusters.play("default")
 		if AccessibilityHandler.isAccessibilityEnabled: #IF accessibility mode is on we want rotation to be non inertial
 			rotateSpeed = 0
 		if  turnRocketSound.playing:
@@ -170,7 +174,7 @@ func _physics_process(delta: float) -> void:
 	
 	rotation += rotateSpeed
 		
-	if (Input.is_action_pressed("thrust")  and fuel > 0):
+	if (Input.is_action_pressed("thrust") and fuel > 0):
 		velocity += Vector2.UP.rotated(rotation)*force*delta*handlingConstant/currentMass
 		fuel -= 10
 		rocket.play("thrust")
