@@ -121,15 +121,7 @@ target = NodePath("../Ship")
 [node name="All Rocks" type="Node2D" parent="."]
 
 [node name="Rock" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(-116, -467)
-scale = Vector2(2.2800012, 2.2800012)
-
-[node name="Rock2" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(-116, -467)
-scale = Vector2(2.2800012, 2.2800012)
-
-[node name="Rock4" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(-822, -402)
+position = Vector2(-391, -754)
 scale = Vector2(2.2800012, 2.2800012)
 
 [node name="Rock5" parent="All Rocks" instance=ExtResource("2_yqjtg")]
@@ -138,18 +130,14 @@ scale = Vector2(2.2800012, 2.2800012)
 
 [node name="Rock6" parent="All Rocks" instance=ExtResource("2_yqjtg")]
 position = Vector2(-879.0001, 320)
-scale = Vector2(2.2800012, 2.2800012)
+scale = Vector2(2.8, 2.8)
 
 [node name="Rock7" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(-212, 765)
-scale = Vector2(2.2800012, 2.2800012)
+position = Vector2(-255.00002, 1202)
+scale = Vector2(3, 3)
 
 [node name="Rock85" parent="All Rocks" instance=ExtResource("2_yqjtg")]
 position = Vector2(506, 639)
-scale = Vector2(2.2800012, 2.2800012)
-
-[node name="Rock86" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(1051, 1011)
 scale = Vector2(2.2800012, 2.2800012)
 
 [node name="Rock89" parent="All Rocks" instance=ExtResource("2_yqjtg")]
@@ -161,39 +149,18 @@ scale = Vector2(2.2800012, 2.2800012)
 position = Vector2(900, -438)
 scale = Vector2(2.2800012, 2.2800012)
 
-[node name="Rock88" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(900, -438)
-scale = Vector2(2.2800012, 2.2800012)
-
 [node name="Rock3" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(164, -308)
-scale = Vector2(1.56, 1.56)
-
-[node name="Rock8" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(498, -879)
-scale = Vector2(1.56, 1.56)
-
-[node name="Rock15" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(871, -1479)
+position = Vector2(290, -716)
 scale = Vector2(1.56, 1.56)
 
 [node name="Rock20" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(748, -1138)
-scale = Vector2(1.56, 1.56)
-
-[node name="Rock43" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(339, -1363)
-scale = Vector2(1.56, 1.56)
+position = Vector2(996, -1120)
+scale = Vector2(3, 3)
 
 [node name="Rock44" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(-718.0001, -908)
-rotation = 2.415644
-scale = Vector2(1.56, 1.56)
-
-[node name="Rock45" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(1304, -930.99994)
-rotation = 2.415644
-scale = Vector2(1.56, 1.56)
+position = Vector2(4.000025, -1252)
+rotation = -0.7557276
+scale = Vector2(1.2, 1.2)
 
 [node name="Rock46" parent="All Rocks" instance=ExtResource("2_yqjtg")]
 position = Vector2(1727, -1583)
@@ -203,12 +170,7 @@ scale = Vector2(1.56, 1.56)
 [node name="Rock47" parent="All Rocks" instance=ExtResource("2_yqjtg")]
 position = Vector2(1727, -1583)
 rotation = 3.2435927
-scale = Vector2(1.56, 1.56)
-
-[node name="Rock48" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(2253, -1205)
-rotation = 3.2435927
-scale = Vector2(1.56, 1.56)
+scale = Vector2(5, 5)
 
 [node name="Rock49" parent="All Rocks" instance=ExtResource("2_yqjtg")]
 position = Vector2(-6628, -3131.9998)
@@ -218,21 +180,6 @@ scale = Vector2(1.56, 1.56)
 [node name="Rock50" parent="All Rocks" instance=ExtResource("2_yqjtg")]
 position = Vector2(-759, -2199)
 rotation = 4.3987427
-scale = Vector2(1.56, 1.56)
-
-[node name="Rock51" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(-1301, -1116.0002)
-rotation = 4.3987427
-scale = Vector2(1.56, 1.56)
-
-[node name="Rock52" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(1388, -446.00006)
-rotation = 4.3987427
-scale = Vector2(1.56, 1.56)
-
-[node name="Rock53" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(1388, -446.00006)
-rotation = 4.3056087
 scale = Vector2(1.56, 1.56)
 
 [node name="Rock54" parent="All Rocks" instance=ExtResource("2_yqjtg")]
@@ -268,10 +215,6 @@ scale = Vector2(1.56, 1.56)
 [node name="Rock60" parent="All Rocks" instance=ExtResource("2_yqjtg")]
 position = Vector2(-1764, 815.00006)
 rotation = 4.3056087
-scale = Vector2(1.56, 1.56)
-
-[node name="Rock16" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(1862, -1822)
 scale = Vector2(1.56, 1.56)
 
 [node name="Rock17" parent="All Rocks" instance=ExtResource("2_yqjtg")]
@@ -6186,20 +6129,12 @@ scale = Vector2(1.56, 1.56)
 position = Vector2(1950, -3658)
 scale = Vector2(1.56, 1.56)
 
-[node name="Rock9" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(-83, -1320)
-scale = Vector2(1.56, 1.56)
-
 [node name="Rock21" parent="All Rocks" instance=ExtResource("2_yqjtg")]
 position = Vector2(-884, -1542)
 scale = Vector2(1.56, 1.56)
 
 [node name="Rock22" parent="All Rocks" instance=ExtResource("2_yqjtg")]
 position = Vector2(-1866, -856)
-scale = Vector2(1.56, 1.56)
-
-[node name="Rock23" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(1740, -775)
 scale = Vector2(1.56, 1.56)
 
 [node name="Rock24" parent="All Rocks" instance=ExtResource("2_yqjtg")]
@@ -6283,11 +6218,6 @@ scale = Vector2(1.56, 1.56)
 
 [node name="Rock137" parent="All Rocks" instance=ExtResource("2_yqjtg")]
 position = Vector2(-3051, -1726.9999)
-rotation = -0.8202155
-scale = Vector2(1.56, 1.56)
-
-[node name="Rock138" parent="All Rocks" instance=ExtResource("2_yqjtg")]
-position = Vector2(-1835, -1500.9999)
 rotation = -0.8202155
 scale = Vector2(1.56, 1.56)
 
@@ -6798,20 +6728,8 @@ shape = SubResource("RectangleShape2D_dinhu")
 
 [node name="Collectible Asteroids" type="Node2D" parent="."]
 
-[node name="Cobalt Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(556, -473)
-
-[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid" index="0"]
-texture = ExtResource("23_suyxu")
-
-[node name="Cobalt Asteroid2" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(1088, -281)
-
-[node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid2" index="0"]
-texture = ExtResource("23_suyxu")
-
 [node name="Cobalt Asteroid3" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(-1076, 123)
+position = Vector2(-3362, 875)
 
 [node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid3" index="0"]
 texture = ExtResource("23_suyxu")
@@ -6907,7 +6825,7 @@ position = Vector2(-459, -2742)
 texture = ExtResource("23_suyxu")
 
 [node name="Cobalt Asteroid19" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(-173, -930)
+position = Vector2(-576, -860)
 
 [node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid19" index="0"]
 texture = ExtResource("23_suyxu")
@@ -6919,7 +6837,7 @@ position = Vector2(-1830, -418)
 texture = ExtResource("23_suyxu")
 
 [node name="Copper Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(-940, 718)
+position = Vector2(-993, 617)
 
 [node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid" index="0"]
 texture = ExtResource("24_sgl2t")
@@ -7020,12 +6938,6 @@ position = Vector2(-653, -6979)
 [node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid17" index="0"]
 texture = ExtResource("24_sgl2t")
 
-[node name="Titanium Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(323, 602)
-
-[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid" index="0"]
-texture = ExtResource("25_qouja")
-
 [node name="Titanium Asteroid2" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
 position = Vector2(440, 2595)
 
@@ -7036,12 +6948,6 @@ texture = ExtResource("25_qouja")
 position = Vector2(-3708, 2178)
 
 [node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid3" index="0"]
-texture = ExtResource("25_qouja")
-
-[node name="Titanium Asteroid4" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(-1289, 605)
-
-[node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid4" index="0"]
 texture = ExtResource("25_qouja")
 
 [node name="Titanium Asteroid5" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
@@ -7147,9 +7053,61 @@ position = Vector2(-4248, 6535)
 texture = ExtResource("25_qouja")
 
 [node name="Iron Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(-884, -79)
+position = Vector2(-525, -311)
 
 [node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid27" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-1232, -770)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid27" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid28" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-1585, -1665)
+rotation = 2.3561945
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid28" index="0"]
+position = Vector2(-88.38838, -425.3733)
+texture = ExtResource("26_wljb1")
+
+[node name="CollisionShape2D" parent="Collectible Asteroids/Iron Asteroid28/Area2D" index="0"]
+position = Vector2(-88.38838, -427.3733)
+
+[node name="Iron Asteroid29" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-475, -2241)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid29" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid30" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(-1585, -1665)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid30" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Area2D" parent="Collectible Asteroids/Iron Asteroid30" index="1"]
+position = Vector2(0, -5)
+
+[node name="Iron Asteroid31" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(993, -2058)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid31" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid25" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(686, -778)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid25" index="0"]
+texture = ExtResource("26_wljb1")
+
+[node name="Iron Asteroid26" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(1357, -231)
+
+[node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid26" index="0"]
+position = Vector2(-43, -44.5)
+scale = Vector2(1.05, 1.025)
 texture = ExtResource("26_wljb1")
 
 [node name="Iron Asteroid2" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
@@ -7293,6 +7251,9 @@ texture = ExtResource("26_wljb1")
 [node name="Golden Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
 position = Vector2(-499, 897)
 
+[node name="Golden Asteroid46" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
+position = Vector2(359, 825)
+
 [node name="Golden Asteroid44" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
 position = Vector2(1023, 348)
 
@@ -7347,10 +7308,10 @@ position = Vector2(1357, -1438)
 position = Vector2(-9789, 1132)
 
 [node name="Golden Asteroid18" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(-114, -176)
+position = Vector2(46, -420)
 
 [node name="Golden Asteroid21" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(-1104, -769)
+position = Vector2(155, -887)
 
 [node name="Golden Asteroid22" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
 position = Vector2(15860, 3207)
@@ -7466,6 +7427,12 @@ camera = NodePath("../Camera2D")
 target = NodePath("../Ship")
 metadata/_edit_lock_ = true
 
+[node name="Copper Asteroid2" parent="." instance=ExtResource("4_gee14")]
+position = Vector2(1557, -672)
+
+[node name="Sprite2D" parent="Copper Asteroid2" index="0"]
+texture = ExtResource("24_sgl2t")
+
 [connection signal="pressed" from="CanvasLayer/Shop/Button" to="Ship" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/Button2" to="Ship" method="_on_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/Button3" to="Ship" method="_on_button_3_pressed"]
@@ -7476,8 +7443,6 @@ metadata/_edit_lock_ = true
 [connection signal="body_entered" from="Package/Package" to="Package" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Package/Package" to="Package" method="_on_area_2d_body_exited"]
 
-[editable path="Collectible Asteroids/Cobalt Asteroid"]
-[editable path="Collectible Asteroids/Cobalt Asteroid2"]
 [editable path="Collectible Asteroids/Cobalt Asteroid3"]
 [editable path="Collectible Asteroids/Cobalt Asteroid4"]
 [editable path="Collectible Asteroids/Cobalt Asteroid5"]
@@ -7513,10 +7478,8 @@ metadata/_edit_lock_ = true
 [editable path="Collectible Asteroids/Copper Asteroid15"]
 [editable path="Collectible Asteroids/Copper Asteroid16"]
 [editable path="Collectible Asteroids/Copper Asteroid17"]
-[editable path="Collectible Asteroids/Titanium Asteroid"]
 [editable path="Collectible Asteroids/Titanium Asteroid2"]
 [editable path="Collectible Asteroids/Titanium Asteroid3"]
-[editable path="Collectible Asteroids/Titanium Asteroid4"]
 [editable path="Collectible Asteroids/Titanium Asteroid5"]
 [editable path="Collectible Asteroids/Titanium Asteroid6"]
 [editable path="Collectible Asteroids/Titanium Asteroid7"]
@@ -7535,6 +7498,13 @@ metadata/_edit_lock_ = true
 [editable path="Collectible Asteroids/Titanium Asteroid20"]
 [editable path="Collectible Asteroids/Titanium Asteroid21"]
 [editable path="Collectible Asteroids/Iron Asteroid"]
+[editable path="Collectible Asteroids/Iron Asteroid27"]
+[editable path="Collectible Asteroids/Iron Asteroid28"]
+[editable path="Collectible Asteroids/Iron Asteroid29"]
+[editable path="Collectible Asteroids/Iron Asteroid30"]
+[editable path="Collectible Asteroids/Iron Asteroid31"]
+[editable path="Collectible Asteroids/Iron Asteroid25"]
+[editable path="Collectible Asteroids/Iron Asteroid26"]
 [editable path="Collectible Asteroids/Iron Asteroid2"]
 [editable path="Collectible Asteroids/Iron Asteroid3"]
 [editable path="Collectible Asteroids/Iron Asteroid4"]
@@ -7558,3 +7528,4 @@ metadata/_edit_lock_ = true
 [editable path="Collectible Asteroids/Iron Asteroid22"]
 [editable path="Collectible Asteroids/Iron Asteroid23"]
 [editable path="Collectible Asteroids/Iron Asteroid24"]
+[editable path="Copper Asteroid2"]
