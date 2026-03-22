@@ -46,6 +46,10 @@ func _on_player_entered_base():
 	print("Base message received")
 	fuel = maxFuel
 	oxygen = maxOxygen
+	if(not(Input.is_action_pressed("turn_left")) and not(Input.is_action_pressed("turn_right")) and not(Input.is_action_pressed("thrust"))):
+		velocity = Vector2.ZERO
+		rotateSpeed = 0
+
 	
 
 func _ready():

@@ -23,7 +23,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			GameController.asteroid_collected
 		)
 		
-		emit_signal("player_entered_base")
+		#emit_signal("player_entered_base")
 
 		#Status of asteroid/package collection for save state testing
 		print("asteroid collected:", GameController.asteroid_collected )
@@ -36,6 +36,10 @@ func _process(delta):
 		if GameController.package_collected == true:
 			GameController.package_return(GameController.asteroid_collected)
 			print("package returned!")
+			
+	if player_in_base:
+		emit_signal("player_entered_base")
+
 
 #tracks whether the player has exited the body
 func _on_base_body_exited(body: Node2D) -> void:
