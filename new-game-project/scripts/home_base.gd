@@ -17,11 +17,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		GlobalSettings.golden_asteroids = 0
 		player_in_base = true
 		shop_node.set_pib(true)
-		save_manager.save_game(
-			body.global_position,
-			GameController.package_collected,
-			GameController.asteroid_collected
-		)
+		
+		SaveManager.save_game()
 		
 		#emit_signal("player_entered_base")
 

@@ -5,6 +5,11 @@ var player_in_body = false
 
 
 func _ready():
+	add_to_group("asteroids")
+	
+	if not has_meta("asteroid_id"):
+		set_meta("asteroid_id", get_path())
+	
 	print(get_node_or_null("/root/Game/Package/Ding"))
 
 
@@ -36,6 +41,12 @@ func _process(delta):
 			$"../../Ship".add_titanium(100)
 			print("Titanium Asteroid Collected")
 		GlobalSettings.golden_asteroids += 1
+		
+		var asteroid_id = get_meta("asteroid_id")
+		if not asteroid_id in GlobalSettings.collected_asteroid_ids:
+			GlobalSettings.collected_asteroid_ids.append(asteroid_id)
+			print("Added asteroid to collected list: ", asteroid_id)
+		
 		ding.play()
 		await get_tree().create_timer(0.1).timeout
 		queue_free()

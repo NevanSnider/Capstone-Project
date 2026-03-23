@@ -20,6 +20,8 @@ var copper: int = 0
 var titanium: int = 0
 var iron: int = 0
 
+var player_in_base = false
+
 @export var force: float = 50.0
 @export var torque: float = .05
 var rotateSpeed = 0
@@ -44,6 +46,7 @@ var server_url = "ws://127.0.0.1:5555"
 
 func _on_player_entered_base():
 	#print("Base message received")
+	player_in_base = true
 	fuel = maxFuel
 	oxygen = maxOxygen
 	if(not(Input.is_action_pressed("turn_left")) and not(Input.is_action_pressed("turn_right")) and not(Input.is_action_pressed("thrust"))):
@@ -53,8 +56,9 @@ func _on_player_entered_base():
 	
 
 func _ready():
-	var data = SaveManager.load_game()
-	GameController.package_collected = data["package_collected"]
+	var save_data = SaveManager.load_game()
+	if save_data and not save_data.is_empty():
+		SaveManager.apply_save_data(save_data)
 	
 	var home_base = get_tree().get_current_scene().get_node("HomeBase")
 	home_base.player_entered_base.connect(_on_player_entered_base)
@@ -68,18 +72,23 @@ func _ready():
 		print("Connection initiated.")
 		_is_connected=true
 
-	
+func _input(event):
+	if event.is_action_pressed("reset_game"):
+		if player_in_base:
+			SaveManager.reset_all_progress()
+		else:
+			print("Must be at base to reset progress")
 	
 func _handle_command(packet:String):
 	print(packet)
 	#respawn function
 func respawn_to_base():
-	var data = SaveManager.load_game()
+	print("Died! Reloading last save...")
+	var save_data = SaveManager.load_game()
+	if save_data and not save_data.is_empty():
+		SaveManager.apply_save_data(save_data)
+	
 	global_position = respawn_point.global_position
-	
-	GameController.package_collected = data["package_collected"]
-	GameController.asteroid_collected = data["asteroid_collected"]
-	
 	velocity = Vector2.ZERO
 	rotateSpeed = 0
 	rotation = 0

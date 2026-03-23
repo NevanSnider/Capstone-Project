@@ -17,6 +17,8 @@ var packages: int = 0:
 		packages = value
 		inventory_changed.emit()
 
+var collected_asteroid_ids: Array = []
+
 func save_settings():
 	var config = ConfigFile.new()
 	config.set_value("gameplay", "camera_lock", camera_lock)
