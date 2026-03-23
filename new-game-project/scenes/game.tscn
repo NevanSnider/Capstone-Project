@@ -6383,6 +6383,7 @@ scale = Vector2(1.56, 1.56)
 
 [node name="TaskLog" type="CanvasLayer" parent="."]
 layer = 10
+visible = false
 script = ExtResource("6_sgl2t")
 
 [node name="ColorRect" type="ColorRect" parent="TaskLog"]
@@ -6580,7 +6581,7 @@ offset_bottom = -6.0
 text = "Increase Fuel Tank
 Maximum.
 Price:
-100 Gold, 100 Cobalt"
+1 Gold, 1 Cobalt"
 
 [node name="TextEdit2" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0
@@ -6591,7 +6592,7 @@ offset_bottom = 237.0
 text = "Increase Thruster
 Power.
 Price:
-100 Copper, 100 Iron
+1 Copper, 1 Iron
 "
 
 [node name="TextEdit3" type="TextEdit" parent="CanvasLayer/Shop"]
@@ -6603,7 +6604,7 @@ offset_bottom = -7.0
 text = "Increase Oxygen Tank
 Maximum.
 Price:
-100 Gold, 100 Titanium"
+1 Gold, 1 Titanium"
 
 [node name="TextEdit5" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0
@@ -6825,10 +6826,13 @@ position = Vector2(-459, -2742)
 texture = ExtResource("23_suyxu")
 
 [node name="Cobalt Asteroid19" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(-576, -860)
+position = Vector2(-226, 45)
 
 [node name="Sprite2D" parent="Collectible Asteroids/Cobalt Asteroid19" index="0"]
 texture = ExtResource("23_suyxu")
+
+[node name="CollisionShape2D" parent="Collectible Asteroids/Cobalt Asteroid19/Area2D" index="0"]
+position = Vector2(1275, -202)
 
 [node name="Cobalt Asteroid20" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
 position = Vector2(-1830, -418)
@@ -6837,7 +6841,7 @@ position = Vector2(-1830, -418)
 texture = ExtResource("23_suyxu")
 
 [node name="Copper Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(-993, 617)
+position = Vector2(-290, 612)
 
 [node name="Sprite2D" parent="Collectible Asteroids/Copper Asteroid" index="0"]
 texture = ExtResource("24_sgl2t")
@@ -6939,7 +6943,7 @@ position = Vector2(-653, -6979)
 texture = ExtResource("24_sgl2t")
 
 [node name="Titanium Asteroid2" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(440, 2595)
+position = Vector2(26, 868)
 
 [node name="Sprite2D" parent="Collectible Asteroids/Titanium Asteroid2" index="0"]
 texture = ExtResource("25_qouja")
@@ -7053,7 +7057,7 @@ position = Vector2(-4248, 6535)
 texture = ExtResource("25_qouja")
 
 [node name="Iron Asteroid" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(-525, -311)
+position = Vector2(-789, -614)
 
 [node name="Sprite2D" parent="Collectible Asteroids/Iron Asteroid" index="0"]
 texture = ExtResource("26_wljb1")
@@ -7308,7 +7312,7 @@ position = Vector2(1357, -1438)
 position = Vector2(-9789, 1132)
 
 [node name="Golden Asteroid18" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
-position = Vector2(46, -420)
+position = Vector2(12, -95)
 
 [node name="Golden Asteroid21" parent="Collectible Asteroids" instance=ExtResource("4_gee14")]
 position = Vector2(155, -887)
@@ -7437,8 +7441,8 @@ texture = ExtResource("24_sgl2t")
 [connection signal="pressed" from="CanvasLayer/Shop/Button2" to="Ship" method="_on_button_2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/Button3" to="Ship" method="_on_button_3_pressed"]
 [connection signal="body_entered" from="HomeBase/Base" to="HomeBase" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_base_body_exited"]
 [connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_area_2d_body_exited"]
+[connection signal="body_exited" from="HomeBase/Base" to="HomeBase" method="_on_base_body_exited"]
 [connection signal="body_shape_entered" from="HomeBase/Base" to="HomeBase/Sprite2D" method="_on_area_2d_body_shape_entered"]
 [connection signal="body_entered" from="Package/Package" to="Package" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Package/Package" to="Package" method="_on_area_2d_body_exited"]
