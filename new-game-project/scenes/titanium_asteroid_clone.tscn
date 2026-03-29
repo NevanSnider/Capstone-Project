@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqgdkqkakkpju"]
+
+[ext_resource type="PackedScene" uid="uid://b26d86xwy4yt7" path="res://scenes/titanium_asteroid.tscn" id="1_vbyku"]
+
+[node name="Titanium Asteroid" instance=ExtResource("1_vbyku")]

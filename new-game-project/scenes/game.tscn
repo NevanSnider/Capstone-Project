@@ -1,15 +1,19 @@
 [gd_scene load_steps=40 format=3 uid="uid://yicge48108e0"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://cp2was3wvq64p" path="res://scenes/game.gd" id="1_wljb1"]
 [ext_resource type="AudioStream" uid="uid://ti8w62a0v2dx" path="res://assets/sounds/rocketAudio.mp3" id="2_bt5mj"]
 [ext_resource type="Script" uid="uid://cpx37ymr8sl4r" path="res://scenes/camera_2d.gd" id="2_vtaks"]
+[ext_resource type="PackedScene" uid="uid://5i6hnpnk8vwh" path="res://scenes/iron_asteroid_clone.tscn" id="2_wljb1"]
 [ext_resource type="PackedScene" uid="uid://67q43j70v2jc" path="res://scenes/asteroid.tscn" id="2_yqjtg"]
 [ext_resource type="AudioStream" uid="uid://38r46m0yybm4" path="res://assets/sounds/crash.mp3" id="3_1kice"]
-[ext_resource type="PackedScene" uid="uid://c8c7a6lpebb2q" path="res://scenes/golden_asteroid.tscn" id="4_gee14"]
+[ext_resource type="PackedScene" uid="uid://bqgdkqkakkpju" path="res://scenes/titanium_asteroid_clone.tscn" id="3_wljb1"]
 [ext_resource type="AudioStream" uid="uid://cy825vrqahef" path="res://assets/sounds/turningRocketAudio.mp3" id="4_qouja"]
+[ext_resource type="PackedScene" uid="uid://cs2omuyxo2n17" path="res://scenes/copper_asteroid_clone.tscn" id="4_wljb1"]
 [ext_resource type="Script" uid="uid://b8i7e8cph71ra" path="res://scripts/home_base.gd" id="5_gee14"]
 [ext_resource type="Texture2D" uid="uid://by6xhbsgohdnw" path="res://assets/home_base.png" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://bw46yhhpv1dcv" path="res://scenes/pause_menu.tscn" id="5_kvuet"]
+[ext_resource type="PackedScene" uid="uid://bv6naysuju2gl" path="res://scenes/cobalt_asteroid_clone.tscn" id="5_qouja"]
 [ext_resource type="Script" uid="uid://dqbfycmpq2xfe" path="res://scripts/task_log.gd" id="6_sgl2t"]
 [ext_resource type="Script" uid="uid://g6jnubso3pr4" path="res://scripts/package.gd" id="7_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://bpb6kkr30gjqp" path="res://assets/pointer.png" id="7_ca42v"]
@@ -27,10 +31,6 @@
 [ext_resource type="AudioStream" uid="uid://cyir0pae3o2ur" path="res://assets/sounds/ding.mp3" id="15_264po"]
 [ext_resource type="PackedScene" uid="uid://dmhx5xve4wk6k" path="res://scenes/inventory.tscn" id="15_e1j6l"]
 [ext_resource type="Script" uid="uid://6hxhj8erj14o" path="res://scripts/inventory.gd" id="16_pl11u"]
-[ext_resource type="PackedScene" uid="uid://b26d86xwy4yt7" path="res://scenes/titanium_asteroid.tscn" id="24_qouja"]
-[ext_resource type="PackedScene" uid="uid://ccjikhmovoh1o" path="res://scenes/iron_asteroid.tscn" id="25_wljb1"]
-[ext_resource type="PackedScene" uid="uid://bgpjv1ppogfj" path="res://scenes/copper_asteroid.tscn" id="26_v2yb1"]
-[ext_resource type="PackedScene" uid="uid://c4jplc81pc46v" path="res://scenes/cobalt_asteroid.tscn" id="27_js0lu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sgl2t"]
 
@@ -95,6 +95,11 @@ size = Vector2(65.75, 63)
 
 [node name="Game" type="Node2D"]
 position = Vector2(-3, -6)
+script = ExtResource("1_wljb1")
+iron_asteroid_scene = ExtResource("2_wljb1")
+titanium_asteroid_scene = ExtResource("3_wljb1")
+copper_asteroid_scene = ExtResource("4_wljb1")
+cobalt_asteroid_scene = ExtResource("5_qouja")
 
 [node name="Ship" parent="." instance=ExtResource("1_uwrxv")]
 z_index = 3
@@ -6726,21 +6731,6 @@ volume_db = 12.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Package/Package"]
 position = Vector2(36, 45)
 shape = SubResource("RectangleShape2D_dinhu")
-
-[node name="Titanium Asteroid" parent="." instance=ExtResource("24_qouja")]
-position = Vector2(-12, 235)
-
-[node name="Iron Asteroid" parent="." instance=ExtResource("25_wljb1")]
-position = Vector2(-159, 242)
-
-[node name="Copper Asteroid" parent="." instance=ExtResource("26_v2yb1")]
-position = Vector2(-290, 104)
-
-[node name="Cobalt Asteroid" parent="." instance=ExtResource("27_js0lu")]
-position = Vector2(-243, -33)
-
-[node name="Golden Asteroid" parent="." instance=ExtResource("4_gee14")]
-position = Vector2(-83, -137)
 
 [node name="SaveManager" type="Node2D" parent="."]
 script = ExtResource("9_vtaks")
