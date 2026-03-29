@@ -3,3 +3,4 @@
 [ext_resource type="PackedScene" uid="uid://ccjikhmovoh1o" path="res://scenes/iron_asteroid.tscn" id="1_lrqta"]
 
 [node name="Iron Asteroid" instance=ExtResource("1_lrqta")]
+position = Vector2(44, 46)

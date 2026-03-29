@@ -7,6 +7,7 @@
 radius = 35.057095
 
 [node name="Cobalt Asteroid3" type="Node2D"]
+position = Vector2(45, 46)
 script = ExtResource("1_b3si2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -3,3 +3,4 @@
 [ext_resource type="PackedScene" uid="uid://bgpjv1ppogfj" path="res://scenes/copper_asteroid.tscn" id="1_88u21"]
 
 [node name="Copper Asteroid" instance=ExtResource("1_88u21")]
+position = Vector2(45, 47)
