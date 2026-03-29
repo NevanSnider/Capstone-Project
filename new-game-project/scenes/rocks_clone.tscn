@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bj5ub4h06gil3"]
+
+[ext_resource type="PackedScene" uid="uid://67q43j70v2jc" path="res://scenes/asteroid.tscn" id="1_04e4j"]
+
+[node name="All Rocks" type="Node2D"]
+
+[node name="Rock" parent="." instance=ExtResource("1_04e4j")]
+position = Vector2(-4.7683716e-07, 9.536743e-07)
+scale = Vector2(2.2800012, 2.2800012)
