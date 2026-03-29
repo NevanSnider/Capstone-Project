@@ -19,3 +19,4 @@ func package_collect(value: bool):
 func package_return(value: bool):
 	package_collected = false
 	EventController.emit_signal("package_returned", package_collected)
+	

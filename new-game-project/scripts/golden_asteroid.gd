@@ -26,19 +26,19 @@ func _process(delta):
 		GameController.asteroid_collect(GameController.asteroid_collected)
 		print("Asteroid Collected!")
 		if $Sprite2D.texture == preload("res://assets/golden_asteroid.png"):
-			$"../../Ship".add_money(100)
+			$"../Ship".add_money(100)
 			print("Golden Asteroid Collected")
 		elif $Sprite2D.texture == preload("res://assets/cobalt-asteroid.png"):
-			$"../../Ship".add_cobalt(100)
+			$"../Ship".add_cobalt(100)
 			print("Cobalt Asteroid Collected")
 		elif $Sprite2D.texture == preload("res://assets/copper-asteroid.png"):
-			$"../../Ship".add_copper(100)
+			$"../Ship".add_copper(100)
 			print("Copper Asteroid Collected")
 		elif $Sprite2D.texture == preload("res://assets/iron-asteroid.png"):
-			$"../../Ship".add_iron(100)
+			$"../Ship".add_iron(100)
 			print("Iron Asteroid Collected")
 		elif $Sprite2D.texture == preload("res://assets/titanium-asteroid.png"):
-			$"../../Ship".add_titanium(100)
+			$"../Ship".add_titanium(100)
 			print("Titanium Asteroid Collected")
 		GlobalSettings.golden_asteroids += 1
 		
