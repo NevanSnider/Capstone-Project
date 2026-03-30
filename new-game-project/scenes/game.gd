@@ -18,9 +18,22 @@ func spawn_asteroid(scene: PackedScene, x, y, angle, size):
 	
 	add_child(asteroid)
 
+var world_seed: int = 12345
 
 
 func _ready():
+	print("=== PROCEDURAL GENERATION _READY CALLED ===")
+	
+	var save_data = SaveManager.load_game()
+	if save_data and save_data.has("world_seed"):
+		world_seed = save_data.get("world_seed")
+		print("Using saved world seed: ", world_seed)
+	else:
+		world_seed = randi()
+		print("Generating new world seed: ", world_seed)
+	
+	seed(world_seed)
+	
 	randomize()
 	
 	#create starting objects

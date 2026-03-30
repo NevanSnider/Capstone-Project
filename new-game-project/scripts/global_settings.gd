@@ -18,6 +18,7 @@ var packages: int = 0:
 		inventory_changed.emit()
 
 var collected_asteroid_ids: Array = []
+var temporary_collected_ids: Array = []
 
 func save_settings():
 	var config = ConfigFile.new()
@@ -40,3 +41,9 @@ func load_settings():
 
 func _ready():
 	load_settings()
+	
+func commit_temporary_collections():
+	for id in temporary_collected_ids:
+		if not id in collected_asteroid_ids:
+			collected_asteroid_ids.append(id)
+	temporary_collected_ids.clear()
