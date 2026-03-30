@@ -87,7 +87,7 @@ func _ready():
 		
 	#procedural generation for area 2
 	#iron
-	for i in range(75):
+	for i in range(125):
 		var x = 0
 		var y = 0 
 		while( x < 1600 and x > -1600 and y < 1600 and y > -1600  ):
@@ -128,9 +128,9 @@ func _ready():
 			y = randf_range(-5000, 5000)	
 		var angle = randf_range(0.0, TAU)
 		var size = randf_range(0.8, 1.2)
-		spawn_asteroid(cobalt_asteroid_scene, x,y,angle,size)					
+		spawn_asteroid(titanium_asteroid_scene, x,y,angle,size)					
 		
-	#rocks
+	#big rocks
 	for i in range(50):
 		var x = 0
 		var y = 0 
@@ -139,7 +139,18 @@ func _ready():
 			y = randf_range(-5000, 5000)
 		var angle = randf_range(0.0, TAU)
 		var size = randf_range(0.5, 4)
-		spawn_asteroid(rock_scene, x,y,angle,size)			
+		spawn_asteroid(rock_scene, x,y,angle,size)		
+		
+	#small rocks
+	for i in range(50):
+		var x = 0
+		var y = 0 
+		while( x < 1600 and x > -1600 and y < 1600 and y > -1600  ):
+			x = randf_range(-5000, 5000)
+			y = randf_range(-5000, 5000)
+		var angle = randf_range(0.0, TAU)
+		var size = randf_range(0.5, 1)
+		spawn_asteroid(rock_scene, x,y,angle,size)				
 		
 	#static objects for area 2
 	spawn_asteroid(rock_scene, 430,2500,.2,10)
@@ -152,7 +163,7 @@ func _ready():
 			
 	#procedural generation for area 3
 	#iron
-	for i in range(250):
+	for i in range(500):
 		var x = 0
 		var y = 0 
 		while( x < 6000 and x > -6000 and y < 6000 and y > -6000  ):
@@ -163,7 +174,7 @@ func _ready():
 		spawn_asteroid(iron_asteroid_scene, x,y,angle,size)	
 		
 	#copper
-	for i in range(75):
+	for i in range(150):
 		var x = 0
 		var y = 0 
 		while( x < 6000 and x > -6000 and y < 6000 and y > -6000  ):
@@ -174,7 +185,7 @@ func _ready():
 		spawn_asteroid(copper_asteroid_scene, x,y,angle,size)	
 		
 	#cobalt
-	for i in range(50):
+	for i in range(100):
 		var x = 0
 		var y = 0 
 		while( x < 6000 and x > -6000 and y < 6000 and y > -6000  ):
@@ -185,7 +196,7 @@ func _ready():
 		spawn_asteroid(cobalt_asteroid_scene, x,y,angle,size)			
 		
 	#titanium
-	for i in range(25):
+	for i in range(50):
 		var x = 0
 		var y = 0 
 		while( x < 6000 and x > -6000 and y < 6000 and y > -6000  ):
@@ -193,10 +204,10 @@ func _ready():
 			y = randf_range(-15000, 15000)		
 		var angle = randf_range(0.0, TAU)
 		var size = randf_range(0.8, 1.2)
-		spawn_asteroid(cobalt_asteroid_scene, x,y,angle,size)					
+		spawn_asteroid(titanium_asteroid_scene, x,y,angle,size)					
 	
 	#small rocks
-	for i in range(500):
+	for i in range(800):
 		var x = 0
 		var y = 0 
 		while( x < 6000 and x > -6000 and y < 6000 and y > -6000  ):

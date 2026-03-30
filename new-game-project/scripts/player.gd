@@ -86,7 +86,7 @@ func _ready():
 	$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n10 Iron, 3 Cobalt"
 					
 	$"../CanvasLayer/Shop/Button3".text = "Thruster Tier 2"
-	$"../CanvasLayer/Shop/TextEdit2".text = "Increase Thruster\nPower.\nPrice:\n20 Iron, 20 Copper"
+	$"../CanvasLayer/Shop/TextEdit2".text = "Increase Thruster\nPower.\nPrice:\n20 Iron, 10 Copper"
 					
 
 func _input(event):
@@ -147,13 +147,13 @@ func _physics_process(delta: float) -> void:
 		maxFuel = 40000				
 		
 	if(oxygenTier == 1):
-		maxOxygen = 60000
+		maxOxygen = 40000
 	elif(oxygenTier == 2):
-		maxOxygen = 120000
+		maxOxygen = 80000
 	elif(oxygenTier == 3):
-		maxOxygen = 200000		
+		maxOxygen = 150000		
 	elif(oxygenTier == 4):
-		maxOxygen = 300000	
+		maxOxygen = 250000	
 	elif(oxygenTier == 5):
 		maxOxygen = 400000		
 		
@@ -346,9 +346,9 @@ func _on_button_pressed() -> void:
 		if (money >= 0 and iron >= 10 and cobalt >= 3 and titanium >= 0):
 			fuelTier += 1
 			money -= 0
-			iron -= 15	
-			cobalt -= 10
-			titanium -= 2	
+			iron -= 10
+			cobalt -= 3
+			titanium -= 0
 			$"../CanvasLayer/Shop/Button".text = "Fuel Tier 3"
 			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
 			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
@@ -392,9 +392,9 @@ func _on_button_pressed() -> void:
 func _on_button_3_pressed() -> void:
 	print("button3 pressed")
 	if (thrusterTier == 1):
-		if (copper >= 20 and iron >= 20):
+		if (copper >= 10 and iron >= 20):
 			thrusterTier += 1
-			copper -= 20
+			copper -= 10
 			iron -= 20
 			$"../CanvasLayer/Shop/Button3".text = "Thruster Tier 3"
 			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
