@@ -100,7 +100,22 @@ func _handle_command(packet:String):
 	print(packet)
 	#respawn function
 func respawn_to_base():
-	print("Died! Reloading last save...")
+	print("Died! Respawning temporarily collected asteroids...")
+	
+	var all_asteroids = get_tree().get_nodes_in_group("asteroids")
+	for asteroid in all_asteroids:
+		if asteroid.has_meta("asteroid_id"):
+			var id = asteroid.get_meta("asteroid_id")
+			if id in GlobalSettings.temporary_collected_ids:
+				print("Respawning asteroid: ", id)
+				asteroid.get_node("Sprite2D").visible = true
+				asteroid.set_process(true)
+				asteroid.get_node("Area2D").monitoring = true
+	
+	GlobalSettings.temporary_collected_ids.clear()
+	GlobalSettings.golden_asteroids = 0
+	GlobalSettings.packages = 0
+	
 	var save_data = SaveManager.load_game()
 	if save_data and not save_data.is_empty():
 		SaveManager.apply_save_data(save_data)
@@ -110,6 +125,16 @@ func respawn_to_base():
 	rotateSpeed = 0
 	rotation = 0
 
+func respawn_asteroid(asteroid_path: String):
+	var generation_script = get_tree().get_current_scene().get_node("All Rocks")
+	if not generation_script:
+		print("Could not find generation script")
+		return
+	
+	var asteroid_parts = asteroid_path.split("/")
+	var asteroid_name = asteroid_parts[-1]
+	
+	print("Respawning asteroid: ", asteroid_name, " at path: ", asteroid_path)
 	
 func _physics_process(delta: float) -> void:
 	var packetDict
