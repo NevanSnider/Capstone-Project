@@ -355,7 +355,7 @@ func _on_button_pressed() -> void:
 			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
 			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
 			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
-			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n15 Iron, 3 Cobalt, 2 Titanium"
+			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n15 Iron, 10 Cobalt, 2 Titanium"
 			
 	if (fuelTier == 2):
 		if (money >= 0 and iron >= 15 and cobalt >= 10 and titanium >= 2):
