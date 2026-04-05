@@ -1,8 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmhx5xve4wk6k"]
+[gd_scene load_steps=15 format=3 uid="uid://dmhx5xve4wk6k"]
 
 [ext_resource type="Texture2D" uid="uid://j7j6tgaauw6q" path="res://assets/golden_asteroid.png" id="1_qw0r6"]
 [ext_resource type="Texture2D" uid="uid://ch4ehecrfmcxf" path="res://assets/package.png" id="2_hj2ta"]
 [ext_resource type="Script" uid="uid://biqudo85wxjhg" path="res://scripts/asteroid_slot.gd" id="2_ty45s"]
+[ext_resource type="Texture2D" uid="uid://jl6phhq7raf3" path="res://assets/cobalt-asteroid.png" id="3_s887n"]
+[ext_resource type="Texture2D" uid="uid://vo4i5gle183r" path="res://assets/copper-asteroid.png" id="4_g71ie"]
+[ext_resource type="Texture2D" uid="uid://oe8vc2op78b2" path="res://assets/iron-asteroid.png" id="5_sr8g6"]
+[ext_resource type="Texture2D" uid="uid://xlmre7anye5f" path="res://assets/titanium-asteroid.png" id="6_p7iul"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qw0r6"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -117,6 +121,169 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_uae8j")
 button_mask = 2
 script = ExtResource("2_ty45s")
 
+[node name="CobaltSlot" type="Panel" parent="Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qw0r6")
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/GridContainer/CobaltSlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_s887n")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/GridContainer/CobaltSlot"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -55.0
+offset_right = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_hj2ta")
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="CopperSlot" type="Panel" parent="Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qw0r6")
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/GridContainer/CopperSlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_g71ie")
+expand_mode = 2
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/GridContainer/CopperSlot"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -55.0
+offset_right = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_hj2ta")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="IronSlot" type="Panel" parent="Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qw0r6")
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/GridContainer/IronSlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_sr8g6")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/GridContainer/IronSlot"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -55.0
+offset_right = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_hj2ta")
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="TitaniumSlot" type="Panel" parent="Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qw0r6")
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/GridContainer/TitaniumSlot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -35.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_p7iul")
+expand_mode = 3
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/GridContainer/TitaniumSlot"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -55.0
+offset_right = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_hj2ta")
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 2
+
 [node name="PackageSlot" type="Panel" parent="Panel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
@@ -155,44 +322,5 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_hj2ta")
 text = "0"
-horizontal_alignment = 2
-vertical_alignment = 2
-
-[node name="EmptySlot" type="Panel" parent="Panel/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(60, 60)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qw0r6")
-
-[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/GridContainer/EmptySlot"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -35.0
-offset_top = -20.0
-offset_right = 35.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-expand_mode = 2
-stretch_mode = 3
-
-[node name="Label" type="Label" parent="Panel/VBoxContainer/GridContainer/EmptySlot"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -60.0
-offset_top = -55.0
-offset_right = -5.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_hj2ta")
 horizontal_alignment = 2
 vertical_alignment = 2

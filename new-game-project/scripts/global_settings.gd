@@ -11,6 +11,26 @@ var golden_asteroids: int = 0:
 	set(value):
 		golden_asteroids = value
 		inventory_changed.emit()
+		
+var cobalt_asteroids: int = 0:
+	set(value):
+		cobalt_asteroids = value
+		inventory_changed.emit()
+		
+var copper_asteroids: int = 0:
+	set(value):
+		copper_asteroids = value
+		inventory_changed.emit()
+		
+var iron_asteroids: int = 0:
+	set(value):
+		iron_asteroids = value
+		inventory_changed.emit()
+		
+var titanium_asteroids: int = 0:
+	set(value):
+		titanium_asteroids = value
+		inventory_changed.emit()
 
 var packages: int = 0:
 	set(value):
@@ -26,6 +46,10 @@ func save_settings():
 	config.set_value("gameplay", "ez_mode", ez_mode)
 	config.set_value("gameplay", "accessibility_mode", accessibility_mode)
 	config.set_value("inventory", "golden_asteroids", golden_asteroids)
+	config.set_value("inventory", "cobalt_asteroids", cobalt_asteroids)
+	config.set_value("inventory", "copper_asteroids", copper_asteroids)
+	config.set_value("inventory", "iron_asteroids", iron_asteroids)
+	config.set_value("inventory", "titanium_asteroids", titanium_asteroids)
 	config.set_value("inventory", "packages", packages)
 	config.save("user://settings.cfg")
 
@@ -37,6 +61,10 @@ func load_settings():
 		ez_mode = config.get_value("gameplay", "ez_mode", false)
 		accessibility_mode = config.get_value("gameplay", "accessibility_mode", false)
 		golden_asteroids = config.get_value("inventory", "golden_asteroids", 0)
+		cobalt_asteroids = config.get_value("inventory", "cobalt_asteroids", 0)
+		copper_asteroids = config.get_value("inventory", "copper_asteroids", 0)
+		iron_asteroids = config.get_value("inventory", "iron_asteroids", 0)
+		titanium_asteroids = config.get_value("inventory", "titanium_asteroids", 0)
 		packages = config.get_value("inventory", "packages", 0)
 
 func _ready():
