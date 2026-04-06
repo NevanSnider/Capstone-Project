@@ -186,11 +186,14 @@ func _physics_process(delta: float) -> void:
 		force = 25
 		torque = .025
 	elif(thrusterTier == 2):
-		force = 50
-		torque = .05	
+		force = 45
+		torque = .045			
 	elif(thrusterTier == 3):
-		force = 75
-		torque = .075
+		force = 65
+		torque = .065	
+	elif(thrusterTier == 4):
+		force = 85
+		torque = .085
 		
 	#add comand to cheat in resources
 	if Input.is_action_pressed("cheat"):
@@ -427,18 +430,32 @@ func _on_button_3_pressed() -> void:
 			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
 			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
 			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
-			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Thruster\nPower.\nPrice:\n50 Iron, 50 Copper, 10 Titanium"
+			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Thruster\nPower.\nPrice:\n40 Iron, 25 Copper, 5 Titanium"
 			
 	if (thrusterTier == 2):
-		if (copper >= 50 and iron >= 50 and titanium >= 10):
+		if (copper >= 25 and iron >= 40 and titanium >= 5):
+			thrusterTier += 1
+			copper -= 25
+			iron -= 40
+			titanium -= 5
+			$"../CanvasLayer/Shop/Button3".text = "Thruster Tier 4"
+			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
+			$"../CanvasLayer/Shop/TextEdit2".text = "Increase Thruster\nPower.\nPrice:\n50 Iron, 50 Copper, 25 Titanium"
+			
+	if (thrusterTier == 3):
+		if (copper >= 50 and iron >= 50 and titanium >= 25):
 			thrusterTier += 1
 			copper -= 50
 			iron -= 50
-			titanium -= 50
+			titanium -= 25
 			$"../CanvasLayer/Shop/Button3".text = "Thruster Max Reached"
 			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
 			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
 			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
 			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
 			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
-			$"../CanvasLayer/Shop/TextEdit2".text = ""
+			$"../CanvasLayer/Shop/TextEdit2".text = ""			

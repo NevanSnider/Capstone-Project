@@ -12,7 +12,8 @@ extends Node2D
 var rng = RandomNumberGenerator.new()
 
 #change this to a specific value to make it 
-@export var seed: int = randf_range(0, 99999)
+@export var seed: int = 1
+#@export var seed: int = randf_range(0, 99999)
 
 func spawn_asteroid(scene: PackedScene, x, y, angle, size):
 	var asteroid = scene.instantiate()
@@ -47,7 +48,7 @@ func _ready():
 	spawn_asteroid(cobalt_asteroid_scene, -30,200,.5,1)
 
 	spawn_asteroid(copper_asteroid_scene, -290,350,0,1)
-	spawn_asteroid(copper_asteroid_scene, -670,130,0.5,1)
+	spawn_asteroid(copper_asteroid_scene, -570,130,0.5,1)
 	
 	spawn_asteroid(rock_scene, -500,130,0,1)
 	spawn_asteroid(rock_scene, 450,-310,1,0.785)
