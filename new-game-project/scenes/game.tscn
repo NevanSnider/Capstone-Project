@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://yicge48108e0"]
+[gd_scene load_steps=43 format=3 uid="uid://yicge48108e0"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://cp2was3wvq64p" path="res://scenes/game.gd" id="1_wljb1"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://ch4ehecrfmcxf" path="res://assets/package.png" id="8_vtaks"]
 [ext_resource type="Script" uid="uid://dmbeirobembkd" path="res://scripts/canvas_layer.gd" id="9_0tnpc"]
 [ext_resource type="Script" uid="uid://dfnmkp1y727is" path="res://scripts/save_manager.gd" id="9_vtaks"]
+[ext_resource type="AudioStream" uid="uid://cs1qvaycq43wm" path="res://assets/sounds/airLeak.mp3" id="11_js0lu"]
 [ext_resource type="Texture2D" uid="uid://bjgoy55cf5n20" path="res://assets/starBackground.png" id="11_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://bj5ub4h06gil3" path="res://scenes/rocks_clone.tscn" id="11_qouja"]
 [ext_resource type="Script" uid="uid://dsbm8x1jo0qc1" path="res://scripts/shop.gd" id="12_5newe"]
@@ -120,6 +121,9 @@ volume_db = 12.0
 [node name="TurnRocketSounds" type="AudioStreamPlayer" parent="Ship"]
 stream = ExtResource("4_qouja")
 volume_db = -5.0
+
+[node name="AirLeek" type="AudioStreamPlayer" parent="Ship"]
+stream = ExtResource("11_js0lu")
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
 ignore_rotation = false

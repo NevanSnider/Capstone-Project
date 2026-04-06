@@ -102,7 +102,7 @@ func _ready():
 		
 	#procedural generation for area 2
 	#iron
-	for i in range(125):
+	for i in range(320):
 		var x = 0
 		var y = 0 
 		while( x < 1600 and x > -1600 and y < 1600 and y > -1600  ):
@@ -113,7 +113,7 @@ func _ready():
 		spawn_asteroid(iron_asteroid_scene, x,y,angle,size)	
 		
 	#copper
-	for i in range(25):
+	for i in range(35):
 		var x = 0
 		var y = 0 
 		while( x < 1600 and x > -1600 and y < 1600 and y > -1600  ):
@@ -124,7 +124,7 @@ func _ready():
 		spawn_asteroid(copper_asteroid_scene, x,y,angle,size)	
 		
 	#cobalt
-	for i in range(15):
+	for i in range(25):
 		var x = 0
 		var y = 0 
 		while( x < 1600 and x > -1600 and y < 1600 and y > -1600  ):

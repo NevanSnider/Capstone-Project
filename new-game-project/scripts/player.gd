@@ -4,9 +4,9 @@ var fuelTier: int = 1
 var oxygenTier: int = 1
 var thrusterTier: int = 1
 
-var maxFuel: int = 1
+var maxFuel: int = 100
 var fuel: int = maxFuel
-var maxOxygen: int = 1
+var maxOxygen: int = 100
 var oxygen: int = maxOxygen
 
 var baseMass: int = 30000
@@ -30,6 +30,7 @@ var rotateSpeed = 0
 @onready var respawn_point = get_tree().get_current_scene().get_node("HomeBase/RespawnPoint")
 @onready var rocketSound: AudioStreamPlayer = $RocketSounds
 @onready var turnRocketSound: AudioStreamPlayer = $TurnRocketSounds
+@onready var airLeek: AudioStreamPlayer = $AirLeek
 
 @onready var crash: AudioStreamPlayer = $Crash
 
@@ -172,15 +173,15 @@ func _physics_process(delta: float) -> void:
 		maxFuel = 40000				
 		
 	if(oxygenTier == 1):
-		maxOxygen = 40000
+		maxOxygen = 30000
 	elif(oxygenTier == 2):
-		maxOxygen = 80000
+		maxOxygen = 60000
 	elif(oxygenTier == 3):
-		maxOxygen = 150000		
+		maxOxygen = 120000		
 	elif(oxygenTier == 4):
-		maxOxygen = 250000	
+		maxOxygen = 240000	
 	elif(oxygenTier == 5):
-		maxOxygen = 400000		
+		maxOxygen = 360000		
 		
 	if(thrusterTier == 1):
 		force = 25
@@ -268,9 +269,16 @@ func _physics_process(delta: float) -> void:
 		
 
 	var collision = move_and_collide(velocity * delta)
-	if collision or oxygen  < 0:
+	if collision :
 		print("Collision Detected, respawning...")
 		crash.play()
+		velocity = Vector2.ZERO
+		rotateSpeed = 0
+		respawn_to_base()
+		
+	if oxygen  < 0:
+		print("No Oxygen Detected, respawning...")
+		airLeek.play()
 		respawn_to_base()
 		
 	oxygen -= 10
