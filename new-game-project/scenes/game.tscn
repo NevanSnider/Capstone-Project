@@ -463,7 +463,7 @@ shape = SubResource("RectangleShape2D_p57ef")
 position = Vector2(-366, 153)
 
 [node name="Package" type="Node2D" parent="."]
-position = Vector2(27006, -13090)
+position = Vector2(-33, -39)
 script = ExtResource("7_0tnpc")
 
 [node name="Sprite2D" type="Sprite2D" parent="Package"]
@@ -495,7 +495,7 @@ metadata/_edit_lock_ = true
 
 [node name="actionTheme" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("33_v2yb1")
-volume_db = 3.0
+volume_db = 2.0
 parameters/looping = true
 
 [connection signal="pressed" from="CanvasLayer/Shop/Button" to="Ship" method="_on_button_pressed"]

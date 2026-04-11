@@ -26,7 +26,62 @@ func spawn_asteroid(scene: PackedScene, x, y, angle, size):
 	
 	add_child(asteroid)
 
-
+func generateRocks(ironAmount, copperAmount, cobaltAmount, titaniumAmount, smallRockAmount, mediumRockAmount, largeRockAmount, xLeftBound, xRightBound, yDownBound, yUpBound):
+	#iron generation
+	for i in range(ironAmount):
+		var x = rng.randf_range(xLeftBound, xRightBound)
+		var y = rng.randf_range(yDownBound, yUpBound)				
+		var angle = rng.randf_range(0.0, TAU)
+		var size = rng.randf_range(0.8, 1.2)
+		spawn_asteroid(iron_asteroid_scene, x,y,angle,size)	
+	
+	#copperAmount generation
+	for i in range(copperAmount):
+		var x = rng.randf_range(xLeftBound, xRightBound)
+		var y = rng.randf_range(yDownBound, yUpBound)				
+		var angle = rng.randf_range(0.0, TAU)
+		var size = rng.randf_range(0.8, 1.2)
+		spawn_asteroid(copper_asteroid_scene, x,y,angle,size)	
+		
+	#cobaltAmount generation
+	for i in range(cobaltAmount):
+		var x = rng.randf_range(xLeftBound, xRightBound)
+		var y = rng.randf_range(yDownBound, yUpBound)				
+		var angle = rng.randf_range(0.0, TAU)
+		var size = rng.randf_range(0.8, 1.2)
+		spawn_asteroid(cobalt_asteroid_scene, x,y,angle,size)			
+		
+	#titaniumAmount generation
+	for i in range(titaniumAmount):
+		var x = rng.randf_range(xLeftBound, xRightBound)
+		var y = rng.randf_range(yDownBound, yUpBound)				
+		var angle = rng.randf_range(0.0, TAU)
+		var size = rng.randf_range(0.8, 1.2)
+		spawn_asteroid(titanium_asteroid_scene, x,y,angle,size)				
+		
+	#small rock generation
+	for i in range(smallRockAmount):
+		var x = rng.randf_range(xLeftBound, xRightBound)
+		var y = rng.randf_range(yDownBound, yUpBound)				
+		var angle = rng.randf_range(0.0, TAU)
+		var size = rng.randf_range(0.5, 1)
+		spawn_asteroid(rock_scene, x,y,angle,size)			
+		
+	#medium rock generation
+	for i in range(mediumRockAmount):
+		var x = rng.randf_range(xLeftBound, xRightBound)
+		var y = rng.randf_range(yDownBound, yUpBound)				
+		var angle = rng.randf_range(0.0, TAU)
+		var size = rng.randf_range(1, 3)
+		spawn_asteroid(rock_scene, x,y,angle,size)		
+		
+	#large rock generation
+	for i in range(largeRockAmount):
+		var x = rng.randf_range(xLeftBound, xRightBound)
+		var y = rng.randf_range(yDownBound, yUpBound)				
+		var angle = rng.randf_range(0.0, TAU)
+		var size = rng.randf_range(3, 10)
+		spawn_asteroid(rock_scene, x,y,angle,size)									
 
 func _ready():
 	
@@ -38,7 +93,7 @@ func _ready():
 	
 	rng.seed = seed
 	
-	#create starting objects
+	#create starting objects (red)
 	#iron
 	spawn_asteroid(iron_asteroid_scene, 30,100,0,1)
 	spawn_asteroid(iron_asteroid_scene, 260,270,0.5,1.2)
@@ -55,123 +110,38 @@ func _ready():
 	
 	
 	#procedural generation for area 1
-	#iron
-	for i in range(40):
-		var x = 0
-		var y = 0 
-		while( x < 500 and x > -500 and y < 500 and y > -500  ):
-			x = rng.randf_range(-1500, 1500)
-			y = rng.randf_range(-1500, 1500)		
-		var angle = rng.randf_range(0.0, TAU)
-		var size = rng.randf_range(0.8, 1.2)
-		spawn_asteroid(iron_asteroid_scene, x,y,angle,size)	
-		
-	#copper
-	for i in range(15):
-		var x = 0
-		var y = 0 
-		while( x < 500 and x > -500 and y < 500 and y > -500  ):
-			x = rng.randf_range(-1500, 1500)
-			y = rng.randf_range(-1500, 1500)		
-		var angle = rng.randf_range(0.0, TAU)
-		var size = rng.randf_range(0.8, 1.2)
-		spawn_asteroid(copper_asteroid_scene, x,y,angle,size)	
-		
-	#cobalt
-	for i in range(5):
-		var x = 0
-		var y = 0 
-		while( x < 500 and x > -500 and y < 500 and y > -500  ):
-			x = rng.randf_range(-1500, 1500)
-			y = rng.randf_range(-1500, 1500)		
-		var angle = rng.randf_range(0.0, TAU)
-		var size = rng.randf_range(0.8, 1.2)
-		spawn_asteroid(cobalt_asteroid_scene, x,y,angle,size)			
-		
-	#rocks
-	for i in range(5):
-		var x = 0
-		var y = 0 
-		while( x < 500 and x > -500 and y < 500 and y > -500  ):
-			x = rng.randf_range(-1500, 1500)
-			y = rng.randf_range(-1500, 1500)		
-		var angle = rng.randf_range(0.0, TAU)
-		var size = rng.randf_range(0.5, 1.25)
-		spawn_asteroid(rock_scene, x,y,angle,size)	
-		
-		
-	#procedural generation for area 2
-	#iron
-	for i in range(320):
-		var x = 0
-		var y = 0 
-		while( x < 1600 and x > -1600 and y < 1600 and y > -1600  ):
-			x = rng.randf_range(-5000, 5000)
-			y = rng.randf_range(-5000, 5000)		
-		var angle = rng.randf_range(0.0, TAU)
-		var size = rng.randf_range(0.8, 1.2)
-		spawn_asteroid(iron_asteroid_scene, x,y,angle,size)	
-		
-	#copper
-	for i in range(35):
-		var x = 0
-		var y = 0 
-		while( x < 1600 and x > -1600 and y < 1600 and y > -1600  ):
-			x = rng.randf_range(-5000, 5000)
-			y = rng.randf_range(-5000, 5000)	
-		var angle = rng.randf_range(0.0, TAU)
-		var size = rng.randf_range(0.8, 1.2)
-		spawn_asteroid(copper_asteroid_scene, x,y,angle,size)	
-		
-	#cobalt
-	for i in range(25):
-		var x = 0
-		var y = 0 
-		while( x < 1600 and x > -1600 and y < 1600 and y > -1600  ):
-			x = rng.randf_range(-5000, 5000)
-			y = rng.randf_range(-5000, 5000)		
-		var angle = rng.randf_range(0.0, TAU)
-		var size = rng.randf_range(0.8, 1.2)
-		spawn_asteroid(cobalt_asteroid_scene, x,y,angle,size)			
-		
-	#titanium
-	for i in range(5):
-		var x = 0
-		var y = 0 
-		while( x < 1600 and x > -1600 and y < 1600 and y > -1600  ):
-			x = rng.randf_range(-5000, 5000)
-			y = rng.randf_range(-5000, 5000)	
-		var angle = rng.randf_range(0.0, TAU)
-		var size = rng.randf_range(0.8, 1.2)
-		spawn_asteroid(titanium_asteroid_scene, x,y,angle,size)					
-		
-	#big rocks
-	for i in range(50):
-		var x = 0
-		var y = 0 
-		while( x < 1600 and x > -1600 and y < 1600 and y > -1600  ):
-			x = rng.randf_range(-5000, 5000)
-			y = rng.randf_range(-5000, 5000)
-		var angle = rng.randf_range(0.0, TAU)
-		var size = rng.randf_range(0.5, 4)
-		spawn_asteroid(rock_scene, x,y,angle,size)		
-		
-	#small rocks
-	for i in range(50):
-		var x = 0
-		var y = 0 
-		while( x < 1600 and x > -1600 and y < 1600 and y > -1600  ):
-			x = rng.randf_range(-5000, 5000)
-			y = rng.randf_range(-5000, 5000)
-		var angle = rng.randf_range(0.0, TAU)
-		var size = rng.randf_range(0.5, 1)
-		spawn_asteroid(rock_scene, x,y,angle,size)				
-		
+	#orange
+	generateRocks(10, 5, 2, 0, 2, 0, 0, -1500, 1500, 500, 1500)
+	#purple
+	generateRocks(20, 5, 2, 0, 5, 1, 0, -1500, 1500, -1500, -500)
+	#cyan	
+	generateRocks(5, 1, 1, 0, 0, 0, 0, -1500, -500, -500, 500)
+	#yellow	
+	generateRocks(5, 3, 0, 0, 1, 1, 0, 500, 1400, -500, 500)
+	#special package at 1450, -450
+
+
+	#procedural generation for area 2 
+	#yellow
+	generateRocks(80, 10, 5, 1, 10, 0, 0, -5000, -1600, -1500, 5000)
+	#pink
+	generateRocks(80, 5, 5, 0, 25, 5, 0, -1600, 1600, 1500, 5000)
+	#cyan
+	generateRocks(60, 5, 15, 1, 70, 5, 0, 1600, 5000, -1500, 5000)
+	#green
+	generateRocks(60, 20, 5, 1, 70, 5, 0, -5000, 1600, -5000, -1600)
+	#blue
+	generateRocks(40, 0, 0, 2, 50, 5, 0, 1700, 5000, -4500, -1700)
+	#special package at -3000, -1550	
+	#special package at 4900, -4750
+	
+
+	
 	#static objects for area 2
 	spawn_asteroid(rock_scene, 430,2500,.2,10)
 	spawn_asteroid(rock_scene, -2020,1030,2,5)
 	spawn_asteroid(rock_scene, 2220,-290,.2,8)
-	spawn_asteroid(rock_scene, 1480,-1960,2,7)	
+	spawn_asteroid(rock_scene, 1280,-1760,2,7)	
 	spawn_asteroid(rock_scene, -1800,-1600,2,6)	
 
 	
