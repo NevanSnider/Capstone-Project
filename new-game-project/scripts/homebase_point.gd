@@ -29,7 +29,7 @@ func _process(_delta):
 		direction_to_home = direction_to_home.rotated(-player.global_rotation)
 	
 	# INSTANTLY position arrow on the edge of the minimap
-	position = minimap_center + direction_to_home * minimap_radius
+	position = minimap_center + direction_to_home * (minimap_radius - 15)
 	
 	# Rotate arrow to point toward respawn point
 	rotation = direction_to_home.angle() + PI / 2  # Adjust if needed

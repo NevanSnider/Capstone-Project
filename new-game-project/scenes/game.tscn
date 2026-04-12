@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://yicge48108e0"]
+[gd_scene load_steps=44 format=3 uid="uid://yicge48108e0"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://cp2was3wvq64p" path="res://scenes/game.gd" id="1_wljb1"]
@@ -15,7 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://bv6naysuju2gl" path="res://scenes/cobalt_asteroid_clone.tscn" id="5_qouja"]
 [ext_resource type="Script" uid="uid://dqbfycmpq2xfe" path="res://scripts/task_log.gd" id="6_sgl2t"]
 [ext_resource type="Script" uid="uid://g6jnubso3pr4" path="res://scripts/package.gd" id="7_0tnpc"]
-[ext_resource type="Texture2D" uid="uid://bpb6kkr30gjqp" path="res://assets/pointer.png" id="7_ca42v"]
 [ext_resource type="Script" uid="uid://yf1igl8jd20y" path="res://scripts/homebase_point.gd" id="8_ca42v"]
 [ext_resource type="Texture2D" uid="uid://s0bu5f3ywa3s" path="res://assets/minimap_t.png" id="8_rysoc"]
 [ext_resource type="Script" uid="uid://csj3o2la24m7x" path="res://scenes/pointing_to_package.gd" id="8_ssvqc"]
@@ -31,7 +30,9 @@
 [ext_resource type="Script" uid="uid://ccemgw4p7pyfe" path="res://scripts/oxygen_bar.gd" id="14_bt5mj"]
 [ext_resource type="AudioStream" uid="uid://cyir0pae3o2ur" path="res://assets/sounds/ding.mp3" id="15_264po"]
 [ext_resource type="PackedScene" uid="uid://dmhx5xve4wk6k" path="res://scenes/inventory.tscn" id="15_e1j6l"]
+[ext_resource type="Texture2D" uid="uid://b7lm7h3fn5pdd" path="res://assets/HomeBaseArrow.png" id="16_gxtfn"]
 [ext_resource type="Script" uid="uid://6hxhj8erj14o" path="res://scripts/inventory.gd" id="16_pl11u"]
+[ext_resource type="Texture2D" uid="uid://dxjja2bcxjvv" path="res://assets/PackageArrow.png" id="18_twgab"]
 [ext_resource type="Script" uid="uid://delg4fmoixo5o" path="res://scenes/hover_text.gd" id="24_wljb1"]
 [ext_resource type="AudioStream" uid="uid://g5o7exhdakkb" path="res://assets/soundtrack/action_synth(updated).mp3" id="33_v2yb1"]
 
@@ -253,8 +254,9 @@ zoom = Vector2(4, 4)
 
 [node name="Pointing to Base" type="Sprite2D" parent="CanvasLayer/MinimapContainer" node_paths=PackedStringArray("player", "respawn_point", "minimap_container", "main_camera")]
 z_index = 5
-position = Vector2(144, 42)
-texture = ExtResource("7_ca42v")
+position = Vector2(138, 78)
+scale = Vector2(1.375, 1.375)
+texture = ExtResource("16_gxtfn")
 script = ExtResource("8_ca42v")
 player = NodePath("../../../Ship")
 respawn_point = NodePath("../../../HomeBase/RespawnPoint")
@@ -263,8 +265,9 @@ main_camera = NodePath("../../../Camera2D")
 
 [node name="Pointing to Package" type="Sprite2D" parent="CanvasLayer/MinimapContainer" node_paths=PackedStringArray("player", "respawn_point", "minimap_container", "main_camera")]
 z_index = 5
-position = Vector2(144, 42)
-texture = ExtResource("7_ca42v")
+position = Vector2(138, 78)
+scale = Vector2(1.375, 1.375)
+texture = ExtResource("18_twgab")
 script = ExtResource("8_ssvqc")
 player = NodePath("../../../Ship")
 respawn_point = NodePath("../../../Package")
@@ -278,6 +281,7 @@ texture = ExtResource("8_rysoc")
 stretch_mode = 4
 
 [node name="Shop" type="Control" parent="CanvasLayer"]
+visible = false
 z_index = 6
 layout_mode = 3
 anchors_preset = 0
@@ -434,6 +438,7 @@ player = NodePath("../../Ship")
 
 [node name="Inventory" parent="CanvasLayer" instance=ExtResource("15_e1j6l")]
 process_mode = 3
+visible = false
 script = ExtResource("16_pl11u")
 
 [node name="HoverText" type="Label" parent="CanvasLayer"]
