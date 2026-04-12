@@ -1,7 +1,7 @@
 extends Node
 @export var collected: bool = true
 var player_in_body = false
-@onready var ding: AudioStreamPlayer =  get_node("/root/Game/Package/Ding")
+@onready var ding: AudioStreamPlayer =  get_node("/root/Game/Ding")
 @onready var tooltip = get_node("/root/Game/CanvasLayer/HoverText")
 @export var asteroid_name: String = "Unknown Asteroid"
 

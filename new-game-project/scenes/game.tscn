@@ -463,16 +463,12 @@ shape = SubResource("RectangleShape2D_p57ef")
 position = Vector2(-366, 153)
 
 [node name="Package" type="Node2D" parent="."]
-position = Vector2(24, -70783)
+position = Vector2(-61, -155)
 script = ExtResource("7_0tnpc")
 
 [node name="Sprite2D" type="Sprite2D" parent="Package"]
 scale = Vector2(0.83750004, 0.83750004)
 texture = ExtResource("8_vtaks")
-
-[node name="Ding" type="AudioStreamPlayer" parent="Package"]
-stream = ExtResource("15_264po")
-volume_db = 12.0
 
 [node name="Package" type="Area2D" parent="Package"]
 position = Vector2(0, 10)
@@ -491,6 +487,10 @@ script = ExtResource("12_dinhu")
 camera = NodePath("../Camera2D")
 target = NodePath("../Ship")
 metadata/_edit_lock_ = true
+
+[node name="Ding" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_264po")
+volume_db = 12.0
 
 [node name="actionTheme" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("33_v2yb1")

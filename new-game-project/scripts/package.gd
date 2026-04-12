@@ -1,11 +1,12 @@
 extends Node2D
 class_name Package
 signal package_triggered
+
 	
 
 
 var player_in_body = false
-@onready var ding: AudioStreamPlayer = $Ding
+@onready var ding: AudioStreamPlayer =  get_node("/root/Game/Ding")
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
