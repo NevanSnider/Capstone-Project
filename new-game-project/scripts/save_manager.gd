@@ -1,38 +1,100 @@
 extends Node
-const SAVE_PATH := "user://savegame.save"
 
-func save_game() -> bool:
+const SAVE_SLOT_1 = "user://savegame_slot1.save"
+const SAVE_SLOT_2 = "user://savegame_slot2.save"
+const SAVE_SLOT_3 = "user://savegame_slot3.save"
+
+var current_slot: int = 1
+
+func get_save_path(slot: int) -> String:
+	match slot:
+		1:
+			return SAVE_SLOT_1
+		2:
+			return SAVE_SLOT_2
+		3:
+			return SAVE_SLOT_3
+		_:
+			return SAVE_SLOT_1
+
+func save_game_to_slot(slot: int) -> bool:
+	var game_scene = get_node_or_null("/root/Game")
+	var world_seed = 1
+	if game_scene:
+		world_seed = game_scene.get("seed")
+		if world_seed == null:
+			world_seed = 1
+	
 	var save_data = {
 		"ship": get_ship_data(),
 		"inventory": get_inventory_data(),
 		"tasks": get_task_data(),
-		"collected_asteroids": GlobalSettings.collected_asteroid_ids
+		"collected_asteroids": GlobalSettings.collected_asteroid_ids,
+		"world_seed": world_seed,
+		"save_date": Time.get_datetime_string_from_system(),
+		"slot": slot
 	}
 	
-	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	var save_path = get_save_path(slot)
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
 	if file:
 		file.store_var(save_data)
 		file.close()
-		print("Game saved successfully!")
+		print("Game saved to slot ", slot, "!")
 		return true
 	else:
-		print("Failed to save game!")
+		print("Failed to save game to slot ", slot, "!")
 		return false
 
-func load_game() -> Dictionary:
-	if not FileAccess.file_exists(SAVE_PATH):
-		print("No save file found")
+func load_game_from_slot(slot: int) -> Dictionary:
+	var save_path = get_save_path(slot)
+	
+	if not FileAccess.file_exists(save_path):
+		print("No save file found in slot ", slot)
 		return {}
 	
-	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	var file = FileAccess.open(save_path, FileAccess.READ)
 	if file:
 		var save_data = file.get_var()
 		file.close()
-		print("Game loaded successfully!")
+		print("Game loaded from slot ", slot, "!")
 		return save_data
 	else:
-		print("Failed to load game!")
+		print("Failed to load game from slot ", slot, "!")
 		return {}
+
+func get_save_info(slot: int) -> Dictionary:
+	var save_path = get_save_path(slot)
+	
+	if not FileAccess.file_exists(save_path):
+		return {"exists": false}
+	
+	var file = FileAccess.open(save_path, FileAccess.READ)
+	if file:
+		var save_data = file.get_var()
+		file.close()
+		return {
+			"exists": true,
+			"date": save_data.get("save_date", "Unknown"),
+			"world_seed": save_data.get("world_seed", 1),
+			"slot": slot
+		}
+	else:
+		return {"exists": false}
+
+func delete_save_slot(slot: int) -> bool:
+	var save_path = get_save_path(slot)
+	if FileAccess.file_exists(save_path):
+		DirAccess.remove_absolute(save_path)
+		print("Deleted save slot ", slot)
+		return true
+	return false
+
+func save_game() -> bool:
+	return save_game_to_slot(current_slot)
+
+func load_game() -> Dictionary:
+	return load_game_from_slot(current_slot)
 
 func apply_save_data(save_data: Dictionary):
 	if save_data.is_empty():
@@ -44,6 +106,13 @@ func apply_save_data(save_data: Dictionary):
 	apply_task_data(save_data.get("tasks", {}))
 	
 	GlobalSettings.collected_asteroid_ids = save_data.get("collected_asteroids", [])
+	
+	var game_scene = get_node_or_null("/root/Game")
+	if game_scene:
+		var world_seed = save_data.get("world_seed", 1)
+		game_scene.seed = world_seed
+		print("Set world seed to: ", world_seed)
+	
 	remove_collected_asteroids()
 
 func get_ship_data() -> Dictionary:
@@ -59,7 +128,12 @@ func get_ship_data() -> Dictionary:
 		"iron": ship.iron,
 		"fuelTier": ship.fuelTier,
 		"oxygenTier": ship.oxygenTier,
-		"thrusterTier": ship.thrusterTier
+		"thrusterTier": ship.thrusterTier,
+		"position": ship.global_position,
+		"velocity": ship.velocity,
+		"rotation": ship.rotation,
+		"fuel": ship.fuel,
+		"oxygen": ship.oxygen
 	}
 
 func apply_ship_data(data: Dictionary):
@@ -75,6 +149,17 @@ func apply_ship_data(data: Dictionary):
 	ship.fuelTier = data.get("fuelTier", 1)
 	ship.oxygenTier = data.get("oxygenTier", 1)
 	ship.thrusterTier = data.get("thrusterTier", 1)
+	
+	if data.has("position"):
+		ship.global_position = data.get("position")
+	if data.has("velocity"):
+		ship.velocity = data.get("velocity")
+	if data.has("rotation"):
+		ship.rotation = data.get("rotation")
+	if data.has("fuel"):
+		ship.fuel = data.get("fuel")
+	if data.has("oxygen"):
+		ship.oxygen = data.get("oxygen")
 	
 	ship.add_money(0)
 	ship.add_cobalt(0)
@@ -161,25 +246,25 @@ func remove_collected_asteroids():
 	
 	var all_asteroids = get_tree().get_nodes_in_group("asteroids")
 	print("Found ", all_asteroids.size(), " asteroids in scene")
-	print("Collected asteroid IDs: ", GlobalSettings.collected_asteroid_ids)
+	print("Permanently collected asteroid IDs: ", GlobalSettings.collected_asteroid_ids)
 	
 	for asteroid in all_asteroids:
 		if asteroid.has_meta("asteroid_id"):
 			var id = asteroid.get_meta("asteroid_id")
 			if id in GlobalSettings.collected_asteroid_ids:
-				print("Removing previously collected asteroid: ", id)
+				print("Removing permanently collected asteroid: ", id)
 				asteroid.queue_free()
-				
+
 func reset_all_progress():
 	print("=== RESETTING ALL PROGRESS ===")
 	
-	if FileAccess.file_exists(SAVE_PATH):
-		DirAccess.remove_absolute(SAVE_PATH)
-		print("Save file deleted")
+	for slot in [1, 2, 3]:
+		delete_save_slot(slot)
 	
 	GlobalSettings.golden_asteroids = 0
 	GlobalSettings.packages = 0
 	GlobalSettings.collected_asteroid_ids.clear()
+	GlobalSettings.temporary_collected_ids.clear()
 	GlobalSettings.camera_lock = false
 	GlobalSettings.ez_mode = false
 	GlobalSettings.accessibility_mode = false
@@ -210,3 +295,13 @@ func reset_all_progress():
 	get_tree().reload_current_scene()
 	
 	print("=== RESET COMPLETE ===")
+
+func auto_save():
+	var slot = GlobalSettings.current_save_slot
+	
+	if slot <= 0:
+		print("No save slot selected — skipping autosave")
+		return
+	
+	save_game_to_slot(slot)
+	print("Autosaved to slot ", slot)

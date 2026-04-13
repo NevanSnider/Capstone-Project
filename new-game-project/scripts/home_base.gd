@@ -21,8 +21,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		player_in_base = true
 		shop_node.set_pib(true)
 		
-		SaveManager.save_game()
-		
 		#emit_signal("player_entered_base")
 
 		#Status of asteroid/package collection for save state testing

@@ -2,6 +2,9 @@ extends Node2D
 
 func _on_start_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
+	
+func _on_load_save_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/load_save.tscn")
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

@@ -50,6 +50,10 @@ func _on_player_entered_base():
 	player_in_base = true
 	fuel = maxFuel
 	oxygen = maxOxygen
+	
+	if GlobalSettings.current_save_slot > 0:
+		SaveManager.auto_save()
+	
 	if(not(Input.is_action_pressed("turn_left")) and not(Input.is_action_pressed("turn_right")) and not(Input.is_action_pressed("thrust"))):
 		velocity = velocity *0.9
 		rotateSpeed = rotateSpeed * 0.9
@@ -57,9 +61,11 @@ func _on_player_entered_base():
 	
 
 func _ready():
-	var save_data = SaveManager.load_game()
-	if save_data and not save_data.is_empty():
-		SaveManager.apply_save_data(save_data)
+	if GlobalSettings.current_save_slot > 0:
+		var slot = GlobalSettings.current_save_slot
+		var save_data = SaveManager.load_game_from_slot(slot)
+		if save_data and not save_data.is_empty():
+			SaveManager.apply_save_data(save_data)
 	
 	var home_base = get_tree().get_current_scene().get_node("HomeBase")
 	home_base.player_entered_base.connect(_on_player_entered_base)
@@ -92,10 +98,18 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("reset_game"):
+		#if player_in_base:
+		SaveManager.reset_all_progress()
+		#else:
+			#print("Must be at base to reset progress")
+			
+	if event.is_action_pressed("quick_save"):
 		if player_in_base:
-			SaveManager.reset_all_progress()
+			get_tree().paused = true
+			var save_menu = load("res://scenes/save_menu.tscn").instantiate()
+			get_tree().root.add_child(save_menu)
 		else:
-			print("Must be at base to reset progress")
+			print("Must be at base to save")
 	
 func _handle_command(packet:String):
 	print(packet)
@@ -117,9 +131,10 @@ func respawn_to_base():
 	GlobalSettings.golden_asteroids = 0
 	GlobalSettings.packages = 0
 	
-	var save_data = SaveManager.load_game()
-	if save_data and not save_data.is_empty():
-		SaveManager.apply_save_data(save_data)
+	if GlobalSettings.current_save_slot > 0:
+		var save_data = SaveManager.load_game_from_slot(GlobalSettings.current_save_slot)
+		if save_data and not save_data.is_empty():
+			SaveManager.apply_save_data(save_data)
 	
 	global_position = respawn_point.global_position
 	velocity = Vector2.ZERO

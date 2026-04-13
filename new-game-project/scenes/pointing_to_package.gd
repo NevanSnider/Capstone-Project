@@ -10,9 +10,17 @@ extends Sprite2D
 var minimap_center: Vector2
 
 func _ready():
+	visible = false 
+	
 	EventController.connect("package_collected", Callable(self, "_on_package_collected"))
+	
 	var package_node = get_parent().get_parent().get_parent().get_node("Package")
 	package_node.package_triggered.connect(_on_package_triggered)
+	
+	var task_manager = get_node("/root/TaskManager")
+	task_manager.task_accepted.connect(_on_task_accepted)
+	task_manager.task_completed.connect(_on_task_completed)
+	
 	if minimap_container:
 		minimap_center = minimap_container.size / 2.0
 	else:
@@ -40,3 +48,11 @@ func _process(_delta):
 	
 func _on_package_triggered():
 	queue_free()
+
+func _on_task_accepted(task_id: String):
+	if task_id == "collect_packages_1":
+		visible = true
+
+func _on_task_completed(task_id: String):
+	if task_id == "collect_packages_1":
+		queue_free()

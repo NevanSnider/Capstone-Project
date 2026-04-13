@@ -63,6 +63,7 @@ offset_bottom = 524.0
 text = "Accesibility TOGGLE"
 
 [connection signal="pressed" from="Control/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Control/LoadSave" to="." method="_on_load_save_pressed"]
 [connection signal="pressed" from="Control/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="Control/Quit" to="." method="_on_quit_pressed"]
 [connection signal="toggled" from="Control/CheckButton" to="." method="_on_check_button_toggled"]

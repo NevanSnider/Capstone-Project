@@ -6,6 +6,8 @@ var camera_lock: bool = false
 var ez_mode: bool = false
 var accessibility_mode: bool = false
 
+var current_save_slot: int = 0
+
 # Inventory
 var golden_asteroids: int = 0:
 	set(value):

@@ -281,7 +281,6 @@ texture = ExtResource("8_rysoc")
 stretch_mode = 4
 
 [node name="Shop" type="Control" parent="CanvasLayer"]
-visible = false
 z_index = 6
 layout_mode = 3
 anchors_preset = 0
