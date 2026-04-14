@@ -34,7 +34,7 @@
 [ext_resource type="Script" uid="uid://6hxhj8erj14o" path="res://scripts/inventory.gd" id="16_pl11u"]
 [ext_resource type="Texture2D" uid="uid://dxjja2bcxjvv" path="res://assets/PackageArrow.png" id="18_twgab"]
 [ext_resource type="Script" uid="uid://delg4fmoixo5o" path="res://scenes/hover_text.gd" id="24_wljb1"]
-[ext_resource type="AudioStream" uid="uid://g5o7exhdakkb" path="res://assets/soundtrack/action_synth(updated).mp3" id="33_v2yb1"]
+[ext_resource type="AudioStream" uid="uid://b1coycu8m6kvr" path="res://assets/soundtrack/action_synth(updated).mp3" id="33_v2yb1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sgl2t"]
 
