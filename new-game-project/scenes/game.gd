@@ -11,8 +11,8 @@ extends Node2D
 #generate random number
 var rng = RandomNumberGenerator.new()
 
-#change this to a specific value to make it 
-@export var seed: int = 2
+#change this to a specific value to make it w
+@export var seed: int = 3
 #@export var seed: int = randf_range(0, 99999)
 
 func spawn_asteroid(scene: PackedScene, x, y, angle, size):
@@ -167,10 +167,10 @@ func _ready():
 			
 	
 	#procedural generation for area 4
-	generateRocks(1000, 5, 5, 5, 500, 50, 5, -20000, -15000, -20000, 20000)
-	generateRocks(1000, 5, 5, 5, 500, 50, 5, 15000, 20000, -20000, 20000)
-	generateRocks(1000, 5, 5, 5, 500, 50, 5, -20000, 20000, 15000, 20000)
-	generateRocks(1000, 5, 5, 5, 500, 50, 5, -20000, 20000, -20000, -15000)
+	generateRocks(2000, 5, 5, 5, 500, 50, 5, -20000, -15000, -20000, 20000)
+	generateRocks(500, 5, 5, 5, 500, 50, 5, 15000, 20000, -20000, 20000)
+	generateRocks(500, 5, 5, 5, 500, 50, 5, -20000, 20000, 15000, 20000)
+	generateRocks(500, 5, 5, 5, 500, 50, 5, -20000, 20000, -20000, -15000)
 
 	#procedural generation for area 5
 	generateRocks(5, 5, 5, 5, 500, 500, 500, -40000, -20000, -40000, 40000)
