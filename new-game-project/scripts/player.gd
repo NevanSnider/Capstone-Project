@@ -198,11 +198,11 @@ func _physics_process(delta: float) -> void:
 		
 	#add comand to cheat in resources
 	if Input.is_action_pressed("cheat"):
-		add_money(100)
-		add_iron(100)
-		add_cobalt(100)
-		add_copper(100)
-		add_titanium(100)
+		add_money(10000)
+		add_iron(10000)
+		add_cobalt(10000)
+		add_copper(10000)
+		add_titanium(10000)
 		
 		
 	currentMass = 30000+fuel
