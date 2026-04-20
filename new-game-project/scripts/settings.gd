@@ -26,5 +26,8 @@ func _on_accessibility_mode_toggled(toggled_on: bool) -> void:
 	GlobalSettings.accessibility_mode = toggled_on
 	GlobalSettings.save_settings()
 
+func _on_controls_pressed() -> void:
+	get_tree().change_scene_to_file("res://scenes/controls.tscn")
+
 func _on_return_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

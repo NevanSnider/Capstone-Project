@@ -5,6 +5,7 @@ extends Node2D
 @export var copper_asteroid_scene: PackedScene
 @export var cobalt_asteroid_scene: PackedScene
 @export var rock_scene: PackedScene
+@export var package_scene: PackedScene
 
 @onready var actionTheme: AudioStreamPlayer = $actionTheme
 
@@ -14,6 +15,12 @@ var rng = RandomNumberGenerator.new()
 #change this to a specific value to make it w
 @export var seed: int = 3
 #@export var seed: int = randf_range(0, 99999)
+
+func spawn_package(x, y):
+	var existing_package = get_node("Package")
+	var special_package = existing_package.duplicate()
+	special_package.position = Vector2(x, -y)
+	add_child(special_package)
 
 func spawn_asteroid(scene: PackedScene, x, y, angle, size):
 	var asteroid = scene.instantiate()
@@ -119,6 +126,7 @@ func _ready():
 	#yellow	
 	generateRocks(5, 3, 0, 0, 1, 1, 0, 500, 1400, -500, 500)
 	#special package at 1450, -450
+	spawn_package(1450, -450)
 
 
 	#procedural generation for area 2 
@@ -133,7 +141,10 @@ func _ready():
 	#blue
 	generateRocks(60, 0, 0, 5, 50, 5, 0, 1700, 5000, -4800, -1700)
 	#special package at -3000, -1550	
+	spawn_package(-3000, -1550)
 	#special package at 4900, -4750
+	spawn_package(-4900, -4750)
+
 	
 
 	
@@ -159,9 +170,13 @@ func _ready():
 	generateRocks(500, 100, 50, 500, 1500, 100, 10, 5000, 14700, -15000, -5000)
 	
 	#special package at -10000, -5050
+	spawn_package(-10000, -5050)
 	#special package at -14900, 14900
-	#special package at 14900, 10000	
+	spawn_package(-149000, 14900)
+	#special package at 14900, 10000
+	spawn_package(14900, 10000)
 	#special package at 14900, -14900
+	spawn_package(14900, -14900)
 	
 
 			

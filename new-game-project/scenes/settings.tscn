@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://uy08w87x37mt" path="res://scripts/settings.gd" id="1_5p8wc"]
 
-[sub_resource type="Gradient" id="Gradient_36l1p"]
+[sub_resource type="Gradient" id="Gradient_5p8wc"]
 offsets = PackedFloat32Array(0.8333333)
 colors = PackedColorArray(0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_5p8wc"]
-gradient = SubResource("Gradient_36l1p")
+gradient = SubResource("Gradient_5p8wc")
 
 [node name="Settings" type="Node2D"]
 script = ExtResource("1_5p8wc")
@@ -19,6 +19,7 @@ offset_right = 1919.0
 offset_bottom = 1076.0
 scale = Vector2(0.600232, 0.6042032)
 texture = SubResource("GradientTexture2D_5p8wc")
+metadata/_edit_use_anchors_ = true
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -27,6 +28,7 @@ offset_left = -1.0
 offset_top = -4.0
 offset_right = 39.0
 offset_bottom = 36.0
+metadata/_edit_use_anchors_ = true
 
 [node name="EZMode" type="CheckButton" parent="Control"]
 layout_mode = 1
@@ -77,14 +79,30 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = 444.86963
+offset_top = 436.90314
+offset_right = 633.1304
+offset_bottom = 499.79572
+grow_horizontal = 2
+grow_vertical = 0
+text = "Return"
+
+[node name="Controls" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 444.86963
 offset_top = 356.90314
 offset_right = 633.1304
 offset_bottom = 419.79572
 grow_horizontal = 2
 grow_vertical = 0
-text = "Return"
+text = "Controls"
 
 [connection signal="toggled" from="Control/EZMode" to="." method="_on_ezmode_toggled"]
 [connection signal="toggled" from="Control/LockCamera" to="." method="_on_cameralock_toggled"]
 [connection signal="toggled" from="Control/AccessibilityMode" to="." method="_on_accessibility_mode_toggled"]
 [connection signal="pressed" from="Control/Return" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="Control/Controls" to="." method="_on_controls_pressed"]
