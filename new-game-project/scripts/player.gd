@@ -213,11 +213,11 @@ func _physics_process(delta: float) -> void:
 		
 	#add comand to cheat in resources
 	if Input.is_action_pressed("cheat"):
-		add_money(100)
-		add_iron(100)
-		add_cobalt(100)
-		add_copper(100)
-		add_titanium(100)
+		add_money(10000)
+		add_iron(10000)
+		add_cobalt(10000)
+		add_copper(10000)
+		add_titanium(10000)
 		
 		
 	currentMass = 30000+fuel
@@ -374,14 +374,14 @@ func _on_button_2_pressed() -> void:
 			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
 			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
 			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
-			$"../CanvasLayer/Shop/TextEdit3".text = "Increase Oxygen Tank Maximum.\nPrice:\n100 Iron, 5 Titanium"
+			$"../CanvasLayer/Shop/TextEdit3".text = "Increase Oxygen Tank Maximum.\nPrice:\n75 Iron, 10 Titanium"
 			
 	elif (oxygenTier == 4):
-		if (money >= 0 and iron >= 100 and titanium >= 5):
+		if (money >= 0 and iron >= 75 and titanium >= 10):
 			oxygenTier += 1
 			money -= 0
-			iron -= 100	
-			titanium -= 5
+			iron -= 75	
+			titanium -= 10
 			$"../CanvasLayer/Shop/Button2".text = "Oxygen Maximum Reached"
 			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
 			$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
@@ -421,14 +421,14 @@ func _on_button_pressed() -> void:
 			$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
 			$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
 			$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
-			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n50 Iron, 25 Cobalt, 5 Titanium"
+			$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n50 Iron, 35 Cobalt, 5 Titanium"
 			
 	if (fuelTier == 3):
-		if (money >= 0 and iron >= 50 and cobalt >= 25 and titanium >= 5):
+		if (money >= 0 and iron >= 50 and cobalt >= 35 and titanium >= 5):
 			fuelTier += 1
 			money -= 0
 			iron -= 50
-			cobalt -= 25
+			cobalt -= 35
 			titanium -= 5	
 			$"../CanvasLayer/Shop/Button".text = "Fuel Max Reached"
 			$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
