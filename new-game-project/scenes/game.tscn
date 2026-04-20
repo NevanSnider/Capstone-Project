@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://yicge48108e0"]
+[gd_scene load_steps=47 format=3 uid="uid://yicge48108e0"]
 
 [ext_resource type="PackedScene" uid="uid://be8qbmt0fe144" path="res://scenes/player.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://cp2was3wvq64p" path="res://scenes/game.gd" id="1_wljb1"]
@@ -61,6 +61,14 @@ corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gxtfn"]
+bg_color = Color(0, 0.5176471, 0.07058824, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
 [sub_resource type="GDScript" id="GDScript_5newe"]
 script/source = "extends Button
 
@@ -74,6 +82,21 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_twgab"]
+bg_color = Color(0, 0.5176471, 0.07058824, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02fa5"]
+bg_color = Color(0, 0.5176471, 0.07058824, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 
 [sub_resource type="GDScript" id="GDScript_kvpfn"]
 script/source = "extends Sprite2D
@@ -281,7 +304,6 @@ texture = ExtResource("8_rysoc")
 stretch_mode = 4
 
 [node name="Shop" type="Control" parent="CanvasLayer"]
-visible = false
 z_index = 6
 layout_mode = 3
 anchors_preset = 0
@@ -306,6 +328,7 @@ offset_left = -227.0
 offset_top = -195.0
 offset_right = -139.0
 offset_bottom = -155.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_gxtfn")
 text = "Fuel Tier 1"
 script = SubResource("GDScript_5newe")
 
@@ -313,8 +336,9 @@ script = SubResource("GDScript_5newe")
 layout_mode = 0
 offset_left = 155.0
 offset_top = -198.0
-offset_right = 243.0
+offset_right = 269.0
 offset_bottom = -158.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_twgab")
 text = "Oxygen Tier 1"
 
 [node name="Button3" type="Button" parent="CanvasLayer/Shop"]
@@ -323,6 +347,7 @@ offset_left = -45.0
 offset_top = 23.0
 offset_right = 77.0
 offset_bottom = 63.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_02fa5")
 text = "Thruster Tier 1"
 
 [node name="TextEdit" type="TextEdit" parent="CanvasLayer/Shop"]
@@ -335,6 +360,7 @@ text = "Increase Fuel Tank
 Maximum.
 Price:
 1 Gold, 1 Cobalt"
+editable = false
 
 [node name="TextEdit2" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0
@@ -347,6 +373,7 @@ Power.
 Price:
 1 Copper, 1 Iron
 "
+editable = false
 
 [node name="TextEdit3" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0
@@ -358,6 +385,7 @@ text = "Increase Oxygen Tank
 Maximum.
 Price:
 1 Gold, 1 Titanium"
+editable = false
 
 [node name="TextEdit5" type="TextEdit" parent="CanvasLayer/Shop"]
 layout_mode = 0

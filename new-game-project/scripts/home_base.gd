@@ -18,6 +18,10 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		GlobalSettings.commit_temporary_collections()
 		
 		GlobalSettings.golden_asteroids = 0
+		GlobalSettings.cobalt_asteroids = 0
+		GlobalSettings.titanium_asteroids = 0
+		GlobalSettings.copper_asteroids = 0
+		GlobalSettings.iron_asteroids = 0
 		player_in_base = true
 		shop_node.set_pib(true)
 		

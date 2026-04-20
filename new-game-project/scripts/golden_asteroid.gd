@@ -65,6 +65,7 @@ func _process(delta):
 		$Sprite2D.visible = false
 		set_process(false)
 		$Area2D.set_deferred("monitoring", false)
+		$Area2D.input_pickable = false
 
 
 func _on_area_2d_mouse_entered() -> void:
