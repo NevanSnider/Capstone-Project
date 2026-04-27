@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://ln1a3ochf8y1"]
+
+[ext_resource type="Script" uid="uid://dpa4a53o4i2bf" path="res://scripts/quest_dialog.gd" id="1_wxjll"]
+
+[node name="QuestDialog" type="CanvasLayer"]
+script = ExtResource("1_wxjll")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 233.0
+offset_bottom = -252.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 236.0
+offset_right = -3.0
+offset_bottom = -255.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="."]
+offset_top = -286.0
+offset_bottom = -286.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+process_mode = 3
+visibility_layer = 524288
+layout_mode = 0
+offset_top = 525.0
+offset_right = 1151.0
+offset_bottom = 647.0
+
+[node name="Title_Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "The Boss"
+horizontal_alignment = 1
+
+[node name="LoreLabel" type="RichTextLabel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 85)
+layout_mode = 2
+text = "Quest lore goes here..."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="AcceptButton" type="Button" parent="Panel/VBoxContainer/HBoxContainer"]
+visibility_layer = 524288
+layout_mode = 2
+text = "Accept"
+
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer/AcceptButton" to="." method="_on_accept_button_pressed"]

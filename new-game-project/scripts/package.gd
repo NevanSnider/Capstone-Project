@@ -4,7 +4,8 @@ signal package_triggered
 
 
 	
-
+func _ready():
+	add_to_group("packages")
 
 var player_in_body = false
 @onready var ding: AudioStreamPlayer =  get_node("/root/Game/Ding")

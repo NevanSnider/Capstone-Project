@@ -286,14 +286,13 @@ respawn_point = NodePath("../../../HomeBase/RespawnPoint")
 minimap_container = NodePath("..")
 main_camera = NodePath("../../../Camera2D")
 
-[node name="Pointing to Package" type="Sprite2D" parent="CanvasLayer/MinimapContainer" node_paths=PackedStringArray("player", "respawn_point", "minimap_container", "main_camera")]
+[node name="Pointing to Package" type="Sprite2D" parent="CanvasLayer/MinimapContainer" node_paths=PackedStringArray("player", "minimap_container", "main_camera")]
 z_index = 5
 position = Vector2(138, 78)
 scale = Vector2(1.375, 1.375)
 texture = ExtResource("18_twgab")
 script = ExtResource("8_ssvqc")
 player = NodePath("../../../Ship")
-respawn_point = NodePath("../../../Package")
 minimap_container = NodePath("..")
 main_camera = NodePath("../../../Camera2D")
 
@@ -442,10 +441,13 @@ offset_left = -564.0
 offset_top = 39.0
 offset_right = -329.0
 offset_bottom = 332.0
+horizontal_scroll_mode = 0
 
 [node name="TaskContainer" type="VBoxContainer" parent="CanvasLayer/Shop/TaskScrollContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 150
 
 [node name="FuelBar" type="ProgressBar" parent="CanvasLayer" node_paths=PackedStringArray("player")]
 z_index = 6

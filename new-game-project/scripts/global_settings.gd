@@ -5,6 +5,7 @@ signal inventory_changed
 var camera_lock: bool = false
 var ez_mode: bool = false
 var accessibility_mode: bool = false
+var pending_quest_id: String = ""
 
 var current_save_slot: int = 0
 

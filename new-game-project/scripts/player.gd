@@ -67,11 +67,12 @@ func _ready():
 		if save_data and not save_data.is_empty():
 			SaveManager.apply_save_data(save_data)
 	
+	update_shop_ui()
+	
+	# Attempt to connect to the WebSocket server
 	var home_base = get_tree().get_current_scene().get_node("HomeBase")
 	home_base.player_entered_base.connect(_on_player_entered_base)
 	
-	
-	# Attempt to connect to the WebSocket server
 	var err = _ws_client.connect_to_url(server_url)
 	if err != OK:
 		print("Error connecting to server.")
@@ -79,22 +80,6 @@ func _ready():
 		print("Connection initiated.")
 		_is_connected=true
 		
-	#set oxygen price
-	$"../CanvasLayer/Shop/Button2".text = "Oxygen Tier 2"
-	$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
-	$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
-	$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
-	$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
-	$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
-	$"../CanvasLayer/Shop/TextEdit3".text = "Increase Oxygen Tank Maximum.\nPrice:\n5 iron"
-		
-	#set fuel price	
-	$"../CanvasLayer/Shop/Button".text = "Fuel Tier 2"
-	$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n10 Iron, 3 Cobalt"
-					
-	$"../CanvasLayer/Shop/Button3".text = "Thruster Tier 2"
-	$"../CanvasLayer/Shop/TextEdit2".text = "Increase Thruster\nPower.\nPrice:\n20 Iron, 10 Copper"
-					
 
 func _input(event):
 	if event.is_action_pressed("reset_game"):
@@ -140,6 +125,55 @@ func respawn_to_base():
 	velocity = Vector2.ZERO
 	rotateSpeed = 0
 	rotation = 0
+
+func update_shop_ui():
+	if fuelTier == 1:
+		$"../CanvasLayer/Shop/Button".text = "Fuel Tier 2"
+		$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n10 Iron, 3 Cobalt"
+	elif fuelTier == 2:
+		$"../CanvasLayer/Shop/Button".text = "Fuel Tier 3"
+		$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n15 Iron, 10 Cobalt, 2 Titanium"
+	elif fuelTier == 3:
+		$"../CanvasLayer/Shop/Button".text = "Fuel Tier 4"
+		$"../CanvasLayer/Shop/TextEdit".text = "Increase Fuel Tank\nMaximum.\nPrice:\n50 Iron, 25 Cobalt, 5 Titanium"
+	elif fuelTier >= 4:
+		$"../CanvasLayer/Shop/Button".text = "Fuel Max Reached"
+		$"../CanvasLayer/Shop/TextEdit".text = ""
+	
+	if oxygenTier == 1:
+		$"../CanvasLayer/Shop/Button2".text = "Oxygen Tier 2"
+		$"../CanvasLayer/Shop/TextEdit3".text = "Increase Oxygen Tank Maximum.\nPrice:\n5 iron"
+	elif oxygenTier == 2:
+		$"../CanvasLayer/Shop/Button2".text = "Oxygen Tier 3"
+		$"../CanvasLayer/Shop/TextEdit3".text = "Increase Oxygen Tank Maximum.\nPrice:\n20 iron"
+	elif oxygenTier == 3:
+		$"../CanvasLayer/Shop/Button2".text = "Oxygen Tier 4"
+		$"../CanvasLayer/Shop/TextEdit3".text = "Increase Oxygen Tank Maximum.\nPrice:\n30 Iron, 1 Titanium"
+	elif oxygenTier == 4:
+		$"../CanvasLayer/Shop/Button2".text = "Oxygen Tier 5"
+		$"../CanvasLayer/Shop/TextEdit3".text = "Increase Oxygen Tank Maximum.\nPrice:\n100 Iron, 5 Titanium"
+	elif oxygenTier >= 5:
+		$"../CanvasLayer/Shop/Button2".text = "Oxygen Maximum Reached"
+		$"../CanvasLayer/Shop/TextEdit3".text = ""
+	
+	if thrusterTier == 1:
+		$"../CanvasLayer/Shop/Button3".text = "Thruster Tier 2"
+		$"../CanvasLayer/Shop/TextEdit2".text = "Increase Thruster\nPower.\nPrice:\n20 Iron, 10 Copper"
+	elif thrusterTier == 2:
+		$"../CanvasLayer/Shop/Button3".text = "Thruster Tier 3"
+		$"../CanvasLayer/Shop/TextEdit2".text = "Increase Thruster\nPower.\nPrice:\n40 Iron, 25 Copper, 5 Titanium"
+	elif thrusterTier == 3:
+		$"../CanvasLayer/Shop/Button3".text = "Thruster Tier 4"
+		$"../CanvasLayer/Shop/TextEdit2".text = "Increase Thruster\nPower.\nPrice:\n50 Iron, 50 Copper, 25 Titanium"
+	elif thrusterTier >= 4:
+		$"../CanvasLayer/Shop/Button3".text = "Thruster Max Reached"
+		$"../CanvasLayer/Shop/TextEdit2".text = ""
+	
+	$"../CanvasLayer/Shop/TextEdit5".text = "Gold: " + str(money)
+	$"../CanvasLayer/Shop/TextEdit6".text = "Cobalt: " + str(cobalt)
+	$"../CanvasLayer/Shop/TextEdit7".text = "Titanium: " + str(titanium)
+	$"../CanvasLayer/Shop/TextEdit8".text = "Copper: " + str(copper)
+	$"../CanvasLayer/Shop/TextEdit9".text = "Iron: " + str(iron)
 
 func respawn_asteroid(asteroid_path: String):
 	var generation_script = get_tree().get_current_scene().get_node("All Rocks")

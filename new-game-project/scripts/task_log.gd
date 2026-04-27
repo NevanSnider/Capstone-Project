@@ -32,7 +32,6 @@ func update_task_list():
 		task_list_container.add_child(no_tasks_label)
 	else:
 		for task in TaskManager.active_tasks:
-			print("Creating entry for task: ", task.title)
 			var task_panel = create_task_entry(task)
 			task_list_container.add_child(task_panel)
 

@@ -11,25 +11,38 @@
 #Any known faults: N/A
 
 extends Control
-
 @onready var task_container = $TaskScrollContainer/TaskContainer
 var player_in_base = false
 var task_card_scene = preload("res://scenes/task_card.tscn")
+var quest_dialog_scene = preload("res://scenes/quest_dialog.tscn")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-	populate_tasks()
-	TaskManager.tasks_updated.connect(populate_tasks)
+	if task_container:
+		populate_tasks()
+		TaskManager.tasks_updated.connect(populate_tasks)
 	
 func populate_tasks():
+	if not task_container:
+		return
+		
 	#clear existing tasks cards
 	for child in task_container.get_children():
 		child.queue_free()
 	
 	#add card for each available task
+	for quest in TaskManager.available_quests:
+		if quest.is_locked:
+			continue
+		var card = task_card_scene.instantiate()
+		task_container.add_child(card)
+		card.setup_quest(quest)
+		card.quest_dialog_requested.connect(_on_quest_dialog_requested)
+	
 	for task in TaskManager.available_tasks:
 		var card = task_card_scene.instantiate()
 		task_container.add_child(card)
@@ -38,13 +51,18 @@ func populate_tasks():
 
 func _on_task_accepted(task_id: String):
 	TaskManager.accept_task(task_id)
-	print("Task accepted from shop: ", task_id)
 
-	
-	for task in TaskManager.active_tasks:
-		if TaskManager.check_task_completion(task):
-			print("Completing task: ", task.title)
-			TaskManager.complete_task(task.id, "/root/Game/Ship")
+func _on_quest_dialog_requested(quest_id: String):
+	var quest = null
+	for q in TaskManager.available_quests:
+		if q.id == quest_id:
+			quest = q
+			break
+	if quest:
+		var dialog = quest_dialog_scene.instantiate()
+		get_tree().root.add_child(dialog)
+		dialog.show_quest(quest)
+		dialog.quest_accepted.connect(func(id): TaskManager.accept_quest(id))
 
 #sets the player as either in the base or not
 func set_pib(value: bool):

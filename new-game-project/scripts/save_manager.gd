@@ -117,10 +117,12 @@ func apply_save_data(save_data: Dictionary):
 
 func get_ship_data() -> Dictionary:
 	var ship = get_node_or_null("/root/Game/Ship")
+	var camera = get_node_or_null("/root/Game/Camera2D")
+	
 	if not ship:
 		return {}
 	
-	return {
+	var data = {
 		"money": ship.money,
 		"cobalt": ship.cobalt,
 		"titanium": ship.titanium,
@@ -135,9 +137,16 @@ func get_ship_data() -> Dictionary:
 		"fuel": ship.fuel,
 		"oxygen": ship.oxygen
 	}
+	
+	if camera:
+		data["zoomTier"] = camera.zoomTier
+	
+	return data
 
 func apply_ship_data(data: Dictionary):
 	var ship = get_node_or_null("/root/Game/Ship")
+	var camera = get_node_or_null("/root/Game/Camera2D")
+	
 	if not ship or data.is_empty():
 		return
 	
@@ -161,6 +170,10 @@ func apply_ship_data(data: Dictionary):
 	if data.has("oxygen"):
 		ship.oxygen = data.get("oxygen")
 	
+	if camera and data.has("zoomTier"):
+		camera.zoomTier = data.get("zoomTier", 1)
+		camera.packageDelivered()
+	
 	ship.add_money(0)
 	ship.add_cobalt(0)
 	ship.add_titanium(0)
@@ -183,20 +196,35 @@ func apply_inventory_data(data: Dictionary):
 func get_task_data() -> Dictionary:
 	var available = []
 	for task in TaskManager.available_tasks:
-		available.append(serialize_task(task))
+		available.append(TaskManager.serialize_task(task))
 	
 	var active = []
 	for task in TaskManager.active_tasks:
-		active.append(serialize_task(task))
+		active.append(TaskManager.serialize_task(task))
 	
 	var completed = []
 	for task in TaskManager.completed_tasks:
-		completed.append(serialize_task(task))
+		completed.append(TaskManager.serialize_task(task))
+	
+	var available_quests = []
+	for quest in TaskManager.available_quests:
+		available_quests.append(TaskManager.serialize_quest(quest))
+	
+	var active_quests = []
+	for quest in TaskManager.active_quests:
+		active_quests.append(TaskManager.serialize_quest(quest))
+	
+	var completed_quests = []
+	for quest in TaskManager.completed_quests:
+		completed_quests.append(TaskManager.serialize_quest(quest))
 	
 	return {
 		"available": available,
 		"active": active,
-		"completed": completed
+		"completed": completed,
+		"available_quests": available_quests,
+		"active_quests": active_quests,
+		"completed_quests": completed_quests
 	}
 
 func serialize_task(task: TaskManager.Task) -> Dictionary:
@@ -229,15 +257,27 @@ func apply_task_data(data: Dictionary):
 	TaskManager.available_tasks.clear()
 	TaskManager.active_tasks.clear()
 	TaskManager.completed_tasks.clear()
+	TaskManager.available_quests.clear()
+	TaskManager.active_quests.clear()
+	TaskManager.completed_quests.clear()
 	
 	for task_data in data.get("available", []):
-		TaskManager.available_tasks.append(deserialize_task(task_data))
+		TaskManager.available_tasks.append(TaskManager.deserialize_task(task_data))
 	
 	for task_data in data.get("active", []):
-		TaskManager.active_tasks.append(deserialize_task(task_data))
+		TaskManager.active_tasks.append(TaskManager.deserialize_task(task_data))
 	
 	for task_data in data.get("completed", []):
-		TaskManager.completed_tasks.append(deserialize_task(task_data))
+		TaskManager.completed_tasks.append(TaskManager.deserialize_task(task_data))
+	
+	for quest_data in data.get("available_quests", []):
+		TaskManager.available_quests.append(TaskManager.deserialize_quest(quest_data))
+	
+	for quest_data in data.get("active_quests", []):
+		TaskManager.active_quests.append(TaskManager.deserialize_quest(quest_data))
+	
+	for quest_data in data.get("completed_quests", []):
+		TaskManager.completed_quests.append(TaskManager.deserialize_quest(quest_data))
 	
 	TaskManager.tasks_updated.emit()
 
