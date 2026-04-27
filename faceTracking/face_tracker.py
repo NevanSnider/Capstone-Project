@@ -267,19 +267,28 @@ def main():
             left_brow = landmarks[105]
             right_brow = landmarks[334]
             left_eye_top = landmarks[159]
+            left_eye_bottom = landmarks[145]
             right_eye_top = landmarks[386]
+            right_eye_bottom = landmarks[374]
 
             # Normalize the brow-eye vertical gap by the inter-eye distance so
             # the threshold is independent of how far the face is from the camera.
             # inter_eye_dist scales with face size and keeps the ratio consistent.
             inter_eye_dist = abs(right_eye.x - left_eye.x)
+            eye_open_ratio = (
+                (abs(left_eye_top.y - left_eye_bottom.y) +
+                 abs(right_eye_top.y - right_eye_bottom.y)) / 2.0
+            ) / inter_eye_dist if inter_eye_dist > 0 else 0.0
             raw_brow_gap = (
                 (left_eye_top.y - left_brow.y) +
                 (right_eye_top.y - right_brow.y)
             ) / 2.0
             brow_raise_ratio = (raw_brow_gap / inter_eye_dist) if inter_eye_dist > 0 else 0.0
+            # Require the eyes to be open so a blink/closed eyelids do not look
+            # like a brow raise when the eyelid landmarks move.
+            eyes_open = eye_open_ratio > 0.01
             # Threshold ~0.35: neutral is ~0.25-0.30, a clear raise goes above 0.35.
-            brows_raised = brow_raise_ratio > 0.5
+            brows_raised = eyes_open and brow_raise_ratio > 0.5
 
             # Rising-edge trigger: fire item_pickup only on the first frame the
             # brows go up, then lock out for ~0.66 s (20 frames at ~30 fps).
