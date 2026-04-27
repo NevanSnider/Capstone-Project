@@ -29,7 +29,7 @@ func _on_area_2d_body_exited(body):
 
 	
 func _process(delta):
-	if player_in_body and Input.is_action_just_pressed("interact"):
+	if player_in_body and (AccessibilityHandler.itemPickedUpAccessibility || Input.is_action_just_pressed("interact")):
 		GameController.asteroid_collect(GameController.asteroid_collected)
 		print("Asteroid Collected!")
 		if $Sprite2D.texture == preload("res://assets/golden_asteroid.png"):

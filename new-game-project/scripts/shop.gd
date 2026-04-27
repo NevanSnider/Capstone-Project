@@ -74,7 +74,7 @@ func _process(delta: float) -> void:
 	
 #The base can be opened if the player is in the shop, and will close when F is pressed a second time
 func _input(event):
-	if event.is_action_pressed("open_shop"):
+	if event.is_action_pressed("open_shop") || AccessibilityHandler.itemPickedUpAccessibility:
 		if visible:
 			toggle()
 		elif player_in_base:

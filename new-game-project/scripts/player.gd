@@ -201,6 +201,7 @@ func _physics_process(delta: float) -> void:
 				var packet = _ws_client.get_packet()
 				# Packets are byte arrays, so we need to convert to string
 				packetDict =JSON.parse_string(packet.get_string_from_utf8())
+				AccessibilityHandler.itemPickedUpAccessibility = bool(packetDict.get("item_pickup",false))
 
 
 		elif state == WebSocketPeer.STATE_CLOSING:
@@ -276,9 +277,11 @@ func _physics_process(delta: float) -> void:
 		if(headTiltAngle>15):
 			fuel-=5
 			rotateSpeed = accessibilityRotationSpeed * delta
+			side_thrusters.play("right thrust")
+			if not turnRocketSound.playing:
+				turnRocketSound.play()	
 		elif (headTiltAngle<-15):
 			rotateSpeed = accessibilityRotationSpeed * delta * -1
-			fuel-=5
 		else:
 			rotateSpeed=0
 		
@@ -310,11 +313,10 @@ func _physics_process(delta: float) -> void:
 			else:
 				if velocity.length()>0:
 					velocity = velocity.lerp(Vector2.ZERO, delta*decelerationRate)
-					fuel-=5
 		
-		rocket.play("default")
-		if  rocketSound.playing:
-			rocketSound.stop()	
+				rocket.play("default")
+				if  rocketSound.playing:
+					rocketSound.stop()	
 		
 
 	var collision = move_and_collide(velocity * delta)
